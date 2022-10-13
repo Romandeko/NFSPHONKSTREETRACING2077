@@ -72,8 +72,9 @@ class Game: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool){
-        
         super.viewDidAppear(true)
+        
+        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(scoreUpdate), userInfo: nil, repeats: true)
         
         UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){
             self.roadImageView.center.y += 900
@@ -86,9 +87,7 @@ class Game: UIViewController {
         UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){
             self.lastRoadImageView.center.y += 1800
         }
-        
-        timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(scoreUpdate), userInfo: nil, repeats: true)
-        
+
         let scoreLabel = UILabel()
         scoreLabel.text = String(score)
         scoreLabel.textAlignment = .center
@@ -104,7 +103,6 @@ class Game: UIViewController {
         animateEnemy(enemy: greenEnemy, lastDistance: 400, delay: 3.9)
         animateEnemy(enemy: taxiEnemy, lastDistance: 500, delay: 4.8)
         animateEnemy(enemy: policeEnemy, lastDistance: 400, delay: 5.6)
-        
     }
     
     // MARK: - Private methods
