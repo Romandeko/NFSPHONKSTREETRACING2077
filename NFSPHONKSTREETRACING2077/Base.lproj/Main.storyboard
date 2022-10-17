@@ -8,41 +8,31 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Menu-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="Menu" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="btl-Pn-AZA">
-                                <rect key="frame" x="0.0" y="0.0" width="436" height="893"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="btl-Pn-AZA">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="btl-Pn-AZA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TDR-kp-2FQ"/>
+                            <constraint firstItem="btl-Pn-AZA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bqn-lZ-7Tc"/>
+                            <constraint firstAttribute="bottom" secondItem="btl-Pn-AZA" secondAttribute="bottom" id="qwD-uL-tAU"/>
+                            <constraint firstAttribute="trailing" secondItem="btl-Pn-AZA" secondAttribute="trailing" id="zjj-NQ-yJh"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="101.53846153846153" y="3.5545023696682461"/>
-        </scene>
-        <!--Game View Controller-->
-        <scene sceneID="bi1-ov-Yck">
-            <objects>
-                <viewController storyboardIdentifier="GameViewController" id="td1-Ym-vdk" customClass="GameViewController" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0xM-UV-7jN">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="eJa-F9-Mxh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xAP-pf-6zG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="861.53846153846155" y="3.5545023696682461"/>
         </scene>
     </scenes>
     <resources>

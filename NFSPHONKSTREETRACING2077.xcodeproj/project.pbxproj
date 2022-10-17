@@ -7,29 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F05585628F9C3970028DC7D /* GameEndless.swift */; };
 		3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCB628F605000082D95F /* AppDelegate.swift */; };
 		3F3ADCB928F605000082D95F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCB828F605000082D95F /* SceneDelegate.swift */; };
-		3F3ADCBB28F605000082D95F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCBA28F605000082D95F /* ViewController.swift */; };
+		3F3ADCBB28F605000082D95F /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCBA28F605000082D95F /* Menu.swift */; };
 		3F3ADCBE28F605000082D95F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3ADCBC28F605000082D95F /* Main.storyboard */; };
 		3F3ADCC028F605000082D95F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3ADCBF28F605000082D95F /* Assets.xcassets */; };
 		3F3ADCC328F605000082D95F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F3ADCC128F605000082D95F /* LaunchScreen.storyboard */; };
-		3F3ADCCB28F6050E0082D95F /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCCA28F6050E0082D95F /* Game.swift */; };
+		3F3ADCCB28F6050E0082D95F /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCCA28F6050E0082D95F /* GameLevel.swift */; };
 		3F4E98D628F6E30F00FB734F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E98D528F6E30F00FB734F /* Location.swift */; };
+		3F4FCB2628FC7BE900230B51 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F4FCB2528FC7BE900230B51 /* SnapKit */; };
 		3F7AE18028F73D9D00474E98 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F7AE17F28F73D9D00474E98 /* music.mp3 */; };
+		3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD5C0828FC518C0016D95D /* ShopViewController.swift */; };
+		3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFAB82728FDD03700E08645 /* CustomViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F05585628F9C3970028DC7D /* GameEndless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndless.swift; sourceTree = "<group>"; };
 		3F3ADCB328F605000082D95F /* NFSPHONKSTREETRACING2077.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NFSPHONKSTREETRACING2077.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3ADCB628F605000082D95F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3ADCB828F605000082D95F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F3ADCBA28F605000082D95F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F3ADCBA28F605000082D95F /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		3F3ADCBD28F605000082D95F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F3ADCBF28F605000082D95F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F3ADCC228F605000082D95F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F3ADCC428F605000082D95F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3F3ADCCA28F6050E0082D95F /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		3F3ADCCA28F6050E0082D95F /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		3F4E98D528F6E30F00FB734F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3F7AE17F28F73D9D00474E98 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = ../../../.Trash/music.mp3; sourceTree = "<group>"; };
+		3FBD5C0828FC518C0016D95D /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		3FFAB82728FDD03700E08645 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F4FCB2628FC7BE900230B51 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,9 +72,12 @@
 			children = (
 				3F3ADCB628F605000082D95F /* AppDelegate.swift */,
 				3F3ADCB828F605000082D95F /* SceneDelegate.swift */,
-				3F3ADCBA28F605000082D95F /* ViewController.swift */,
-				3F3ADCCA28F6050E0082D95F /* Game.swift */,
+				3F3ADCBA28F605000082D95F /* Menu.swift */,
+				3F3ADCCA28F6050E0082D95F /* GameLevel.swift */,
+				3F05585628F9C3970028DC7D /* GameEndless.swift */,
+				3FBD5C0828FC518C0016D95D /* ShopViewController.swift */,
 				3F4E98D528F6E30F00FB734F /* Location.swift */,
+				3FFAB82728FDD03700E08645 /* CustomViews.swift */,
 				3F3ADCBC28F605000082D95F /* Main.storyboard */,
 				3F7AE17F28F73D9D00474E98 /* music.mp3 */,
 				3F3ADCBF28F605000082D95F /* Assets.xcassets */,
@@ -92,6 +103,9 @@
 			dependencies = (
 			);
 			name = NFSPHONKSTREETRACING2077;
+			packageProductDependencies = (
+				3F4FCB2528FC7BE900230B51 /* SnapKit */,
+			);
 			productName = NFSPHONKSTREETRACING2077;
 			productReference = 3F3ADCB328F605000082D95F /* NFSPHONKSTREETRACING2077.app */;
 			productType = "com.apple.product-type.application";
@@ -120,6 +134,9 @@
 				Base,
 			);
 			mainGroup = 3F3ADCAA28F605000082D95F;
+			packageReferences = (
+				3F4FCB2428FC7BE900230B51 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 3F3ADCB428F605000082D95F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -148,9 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F3ADCCB28F6050E0082D95F /* Game.swift in Sources */,
-				3F3ADCBB28F605000082D95F /* ViewController.swift in Sources */,
+				3F3ADCCB28F6050E0082D95F /* GameLevel.swift in Sources */,
+				3F3ADCBB28F605000082D95F /* Menu.swift in Sources */,
 				3F4E98D628F6E30F00FB734F /* Location.swift in Sources */,
+				3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */,
+				3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */,
+				3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */,
 				3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */,
 				3F3ADCB928F605000082D95F /* SceneDelegate.swift in Sources */,
 			);
@@ -370,6 +390,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3F4FCB2428FC7BE900230B51 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3F4FCB2528FC7BE900230B51 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F4FCB2428FC7BE900230B51 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3F3ADCAB28F605000082D95F /* Project object */;
 }
