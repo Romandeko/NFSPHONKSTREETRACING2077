@@ -16,27 +16,122 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="btl-Pn-AZA">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="btl-Pn-AZA" customClass="BackgroundImageView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="a8t-mi-MUc" customClass="ShadowImageView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                                <rect key="frame" x="60" y="47" width="270" height="214"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="270" id="kmT-Ju-r80"/>
+                                    <constraint firstAttribute="height" constant="214" id="szN-kQ-63e"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="a8t-mi-MUc" secondAttribute="bottom" constant="549" id="8Qp-4M-LoC"/>
+                            <constraint firstItem="a8t-mi-MUc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Eay-xg-0TJ"/>
+                            <constraint firstItem="a8t-mi-MUc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="HNb-ga-skS"/>
                             <constraint firstItem="btl-Pn-AZA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TDR-kp-2FQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="a8t-mi-MUc" secondAttribute="trailing" constant="60" id="bWS-2P-uKt"/>
                             <constraint firstItem="btl-Pn-AZA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bqn-lZ-7Tc"/>
                             <constraint firstAttribute="bottom" secondItem="btl-Pn-AZA" secondAttribute="bottom" id="qwD-uL-tAU"/>
                             <constraint firstAttribute="trailing" secondItem="btl-Pn-AZA" secondAttribute="trailing" id="zjj-NQ-yJh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="btl-Pn-AZA" id="lfz-po-Haj"/>
+                        <outlet property="logoImageView" destination="a8t-mi-MUc" id="aQd-w2-lM4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="101.53846153846153" y="3.5545023696682461"/>
         </scene>
+        <!--Game Level-->
+        <scene sceneID="dm7-J5-dfg">
+            <objects>
+                <viewController storyboardIdentifier="GameLevel" id="4SO-k1-q1m" customClass="GameLevel" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wO9-Mb-Qdj">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-6f-O6a" customClass="BackgroundView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="9X5-t0-q07"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="startBlurView" destination="ioN-6f-O6a" id="qt0-bM-duu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VCg-1l-Smf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="825" y="3"/>
+        </scene>
+        <!--Game Endless-->
+        <scene sceneID="2F0-7m-wVv">
+            <objects>
+                <viewController storyboardIdentifier="GameEndless" id="pEW-S6-bUn" customClass="GameEndless" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FWN-Eh-ImG">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jrj-8V-7LR" customClass="BackgroundView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gfX-9l-IAZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="startBlurView" destination="Jrj-8V-7LR" id="yGK-Nl-a5a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kcz-Hp-fmZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1548" y="11"/>
+        </scene>
+        <!--Shop View Controller-->
+        <scene sceneID="UKJ-Ba-F6L">
+            <objects>
+                <viewController storyboardIdentifier="ShopViewController" id="xrA-7Q-yaf" customClass="ShopViewController" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Eb-09-6gZ">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="20z-Pf-oZ8" customClass="BackgroundImageView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BiC-PT-W4E"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="20z-Pf-oZ8" firstAttribute="leading" secondItem="7Eb-09-6gZ" secondAttribute="leading" id="1Li-GW-N6T"/>
+                            <constraint firstAttribute="bottom" secondItem="20z-Pf-oZ8" secondAttribute="bottom" id="2v5-rH-eGw"/>
+                            <constraint firstAttribute="trailing" secondItem="20z-Pf-oZ8" secondAttribute="trailing" id="Y9C-FU-yYE"/>
+                            <constraint firstItem="20z-Pf-oZ8" firstAttribute="top" secondItem="7Eb-09-6gZ" secondAttribute="top" id="b28-Dj-7Cu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backImageView" destination="20z-Pf-oZ8" id="tHr-sn-4tz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3zr-Jk-qk1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2286" y="11"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background1" width="1080" height="1892"/>
+        <image name="logo" width="900" height="675"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

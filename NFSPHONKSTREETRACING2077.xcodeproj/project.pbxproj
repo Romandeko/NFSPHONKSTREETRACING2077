@@ -17,7 +17,12 @@
 		3F3ADCCB28F6050E0082D95F /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCCA28F6050E0082D95F /* GameLevel.swift */; };
 		3F4E98D628F6E30F00FB734F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4E98D528F6E30F00FB734F /* Location.swift */; };
 		3F4FCB2628FC7BE900230B51 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F4FCB2528FC7BE900230B51 /* SnapKit */; };
-		3F7AE18028F73D9D00474E98 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F7AE17F28F73D9D00474E98 /* music.mp3 */; };
+		3F571E002900764D008697C2 /* serebro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571DFF2900764D008697C2 /* serebro.mp3 */; };
+		3F571E0229007672008697C2 /* phonk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571E0129007672008697C2 /* phonk.mp3 */; };
+		3F571E0429007F45008697C2 /* sexy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571E0329007F45008697C2 /* sexy.mp3 */; };
+		3F6DBC7D28FE8464000286CB /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7C28FE8464000286CB /* BlurView.swift */; };
+		3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7E28FE8756000286CB /* ShadowView.swift */; };
+		3F6DBC8128FE8765000286CB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC8028FE8765000286CB /* GradientView.swift */; };
 		3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD5C0828FC518C0016D95D /* ShopViewController.swift */; };
 		3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFAB82728FDD03700E08645 /* CustomViews.swift */; };
 /* End PBXBuildFile section */
@@ -34,7 +39,12 @@
 		3F3ADCC428F605000082D95F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F3ADCCA28F6050E0082D95F /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		3F4E98D528F6E30F00FB734F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		3F7AE17F28F73D9D00474E98 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = ../../../.Trash/music.mp3; sourceTree = "<group>"; };
+		3F571DFF2900764D008697C2 /* serebro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = serebro.mp3; sourceTree = "<group>"; };
+		3F571E0129007672008697C2 /* phonk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phonk.mp3; sourceTree = "<group>"; };
+		3F571E0329007F45008697C2 /* sexy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sexy.mp3; sourceTree = "<group>"; };
+		3F6DBC7C28FE8464000286CB /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		3F6DBC7E28FE8756000286CB /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		3F6DBC8028FE8765000286CB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3FBD5C0828FC518C0016D95D /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		3FFAB82728FDD03700E08645 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,8 +88,13 @@
 				3FBD5C0828FC518C0016D95D /* ShopViewController.swift */,
 				3F4E98D528F6E30F00FB734F /* Location.swift */,
 				3FFAB82728FDD03700E08645 /* CustomViews.swift */,
+				3F6DBC7C28FE8464000286CB /* BlurView.swift */,
+				3F6DBC7E28FE8756000286CB /* ShadowView.swift */,
+				3F6DBC8028FE8765000286CB /* GradientView.swift */,
+				3F571E0129007672008697C2 /* phonk.mp3 */,
+				3F571DFF2900764D008697C2 /* serebro.mp3 */,
+				3F571E0329007F45008697C2 /* sexy.mp3 */,
 				3F3ADCBC28F605000082D95F /* Main.storyboard */,
-				3F7AE17F28F73D9D00474E98 /* music.mp3 */,
 				3F3ADCBF28F605000082D95F /* Assets.xcassets */,
 				3F3ADCC128F605000082D95F /* LaunchScreen.storyboard */,
 				3F3ADCC428F605000082D95F /* Info.plist */,
@@ -151,10 +166,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F7AE18028F73D9D00474E98 /* music.mp3 in Resources */,
+				3F571E0229007672008697C2 /* phonk.mp3 in Resources */,
 				3F3ADCC328F605000082D95F /* LaunchScreen.storyboard in Resources */,
+				3F571E002900764D008697C2 /* serebro.mp3 in Resources */,
 				3F3ADCC028F605000082D95F /* Assets.xcassets in Resources */,
 				3F3ADCBE28F605000082D95F /* Main.storyboard in Resources */,
+				3F571E0429007F45008697C2 /* sexy.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,9 +184,12 @@
 			files = (
 				3F3ADCCB28F6050E0082D95F /* GameLevel.swift in Sources */,
 				3F3ADCBB28F605000082D95F /* Menu.swift in Sources */,
+				3F6DBC8128FE8765000286CB /* GradientView.swift in Sources */,
 				3F4E98D628F6E30F00FB734F /* Location.swift in Sources */,
 				3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */,
+				3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */,
 				3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */,
+				3F6DBC7D28FE8464000286CB /* BlurView.swift in Sources */,
 				3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */,
 				3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */,
 				3F3ADCB928F605000082D95F /* SceneDelegate.swift in Sources */,

@@ -6,24 +6,31 @@ class GameLevel: UIViewController {
     
     // MARK: - Override properties
     var mainCarImage = UIImage()
-    private lazy var carImageView = UIImageView(image: mainCarImage)
+    private lazy var carImageView  = UIImageView(image: mainCarImage)
+    
     private var carLocation: Location = .center {
         willSet (newLocation) {
             carLayout(at: newLocation)
         }
     }
-    
+   
     private var backMessage = "Капец ты слабый..."
     private var coins = 0
+    private var time = 3
     private var scoreTimer = Timer()
     private var finalTimer = Timer()
+    private var startTimer = Timer()
+    private var backTimer = Timer()
     private let scoreLabel = UILabel()
+    private let timeLabel = UILabel()
     private var isOneHundread = false
     private var isFifty = false
     private var isTwoHundread = false
+    private var isStarted = false
+
     
     private let roadImage = UIImage(named: "road1")
-    private let finalRoad = UIImage(named: "FINISH2")
+    private let finalRoad = UIImage(named: "FINISH")
     private lazy var roadImageView = UIImageView(image: roadImage)
     private lazy var lastRoadImageView = UIImageView(image: roadImage)
     private lazy var secondRoadImageView = UIImageView(image: roadImage)
@@ -49,29 +56,28 @@ class GameLevel: UIViewController {
     
     private var speed = 300.0
     private var roadDistance = 1800.0
-    private var roadTime = 5.0
-    private var roadSpeed = 360.0
     private var secondsCounter = 0
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var startBlurView: BackgroundView!
     
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         rightSide = view.frame.width - 70
         center = view.center.x
+        startBlurView.alpha = 1
+        startBlurView.makeBlur()
         
         roadsStartLayout()
         mainCarStartLayout()
         enemiesStartLayout()
         addSubViews()
-        
-        scoreLabel.text = String(coins)
-        scoreLabel.textAlignment = .center
-        scoreLabel.font = scoreLabel.font.withSize(30)
-        scoreLabel.textColor = .white
-        scoreLabel.frame.size = CGSize(width: 350, height: 50)
-        scoreLabel.center.x = 50
-        scoreLabel.frame.origin.y = 50
-        view.addSubview(scoreLabel)
+        addLabels()
+     
+        view.insertSubview(startBlurView, aboveSubview: roadImageView)
+        view.insertSubview(startBlurView, aboveSubview: carImageView)
         
         addSwipeGesture(to: carImageView, with: .left)
         addSwipeGesture(to: carImageView, with: .right)
@@ -79,51 +85,10 @@ class GameLevel: UIViewController {
     
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(true)
-        
         coins = 0
-        
-        scoreTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(scoreUpdate), userInfo: nil, repeats: true)
-        finalTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(finalCheck), userInfo: nil, repeats: true)
-        
-        
-        
-        UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){
-            self.roadImageView.center.y += 900
-        }
-        
-        UIImageView.animate(withDuration: 5, delay: 0, options: [.curveLinear, .repeat] ){
-            self.secondRoadImageView.center.y += self.roadDistance
-        }
-        
-        UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){
-            self.lastRoadImageView.center.y += self.roadDistance
-        }
-        UIImageView.animate(withDuration: 5, delay: 22.5, options: [.curveLinear, .repeat] ){
-            self.finalRoadImageView.center.y += self.roadDistance
-        }
-        
-        
-        let scoreLabel = UILabel()
-        scoreLabel.text = String(coins)
-        scoreLabel.textAlignment = .center
-        scoreLabel.font = scoreLabel.font.withSize(30)
-        scoreLabel.textColor = .white
-        scoreLabel.frame.size = CGSize(width: 350, height: 50)
-        scoreLabel.center.x = 50
-        scoreLabel.frame.origin.y = 50
-        
-        animateEnemy(enemy: whiteEnemy, lastDistance: 400, delay: 1.6)
-        animateEnemy(enemy: redEnemy, lastDistance: 500, delay: 0.5)
-        animateEnemy(enemy: blueEnemy, lastDistance: 600, delay: 2.6)
-        animateEnemy(enemy: greenEnemy, lastDistance: 400, delay: 3.9)
-        animateEnemy(enemy: taxiEnemy, lastDistance: 500, delay: 4.8)
-        animateEnemy(enemy: policeEnemy, lastDistance: 400, delay: 5.6)
-        
+    
+    addTimers()
     }
-    
-    
-    
-    
     
     private func addSwipeGesture(to view: UIImageView, with direction: UISwipeGestureRecognizer.Direction){
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveCar))
@@ -161,13 +126,13 @@ class GameLevel: UIViewController {
     }
     
     @objc private func scoreUpdate(){
+        guard isStarted == true else { return }
+        
         coins += 1
         if coins > 50 && isFifty == false {
             scoreLabel.textColor = .yellow
             backMessage = "Так себе"
             isFifty = true
-            
-            
         }
         if coins > 100 && isOneHundread == false {
             scoreLabel.textColor = .orange
@@ -195,9 +160,53 @@ class GameLevel: UIViewController {
             dismiss(animated: false)
         }
     }
+    @objc private func timeBack(){
+        if timeLabel.text  == "1" {
+            timeLabel.text = "GO"
+            return
+        }
+        if timeLabel.text  == "GO" {
+            timeLabel.text = ""
+            backTimer.invalidate()
+            return
+        }
+        time -= 1
+        timeLabel.text = String(time)
+        }
+    
+    
+    @objc private func startCheck(){
+        if isStarted == false {
+            isStarted = true
+            
+            animateEnemy(enemy: whiteEnemy, lastDistance: 400, delay: 1.6)
+            animateEnemy(enemy: redEnemy, lastDistance: 500, delay: 0.5)
+            animateEnemy(enemy: blueEnemy, lastDistance: 600, delay: 2.6)
+            animateEnemy(enemy: greenEnemy, lastDistance: 400, delay: 3.9)
+            animateEnemy(enemy: taxiEnemy, lastDistance: 500, delay: 4.8)
+            animateEnemy(enemy: policeEnemy, lastDistance: 400, delay: 5.6)
+            
+            UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){
+                self.roadImageView.center.y += 900
+            }
+            
+            UIImageView.animate(withDuration: 5, delay: 0, options: [.curveLinear, .repeat] ){
+                self.secondRoadImageView.center.y += self.roadDistance
+            }
+            
+            UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){
+                self.lastRoadImageView.center.y += self.roadDistance
+            }
+            UIImageView.animate(withDuration: 5, delay: 19.5, options: [.curveLinear, .repeat] ){
+                self.finalRoadImageView.center.y += self.roadDistance
+            }
+            startBlurView.isHidden = true
+            
+        } else { return }
+    }
     
     private func animateEnemy(enemy: UIImageView, lastDistance: Double, delay : Double){
-        let firstDistance : Double = 710
+        let firstDistance : Double = 720
         let secondDistance : Double = 250
         let thirdDistance : Double = lastDistance
         let firstTime = firstDistance/speed
@@ -250,6 +259,12 @@ class GameLevel: UIViewController {
         view.addSubview(policeEnemy)
         view.addSubview(blueEnemy)
     }
+    private func addTimers(){
+        scoreTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(scoreUpdate), userInfo: nil, repeats: true)
+        finalTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(finalCheck), userInfo: nil, repeats: true)
+        startTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(startCheck), userInfo: nil, repeats: true)
+        backTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeBack), userInfo: nil, repeats: true)
+    }
     private func enemiesStartLayout(){
         let randomLineArray = [self.leftSide,self.center,self.rightSide]
         
@@ -299,6 +314,26 @@ class GameLevel: UIViewController {
         carImageView.isUserInteractionEnabled = true
     }
     
+    private func addLabels(){
+        scoreLabel.text = String(coins)
+        scoreLabel.textAlignment = .center
+        scoreLabel.font = scoreLabel.font.withSize(30)
+        scoreLabel.textColor = .white
+        scoreLabel.frame.size = CGSize(width: 350, height: 50)
+        scoreLabel.center.x = 50
+        scoreLabel.frame.origin.y = 50
+        view.addSubview(scoreLabel)
+        
+        timeLabel.text = String(time)
+        timeLabel.textAlignment = .center
+        timeLabel.font = timeLabel.font.withSize(100)
+        timeLabel.textColor = .black
+        timeLabel.frame.size = CGSize(width: 200, height: 200)
+        timeLabel.center.x  = view.center.x
+        timeLabel.center.y = view.center.y
+        view.addSubview(timeLabel)
+       
+    }
 }
 
 

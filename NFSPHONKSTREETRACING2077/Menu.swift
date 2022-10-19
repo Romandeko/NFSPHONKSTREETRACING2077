@@ -12,104 +12,53 @@ class Menu: UIViewController {
     
     // MARK: - Override properties
     var coins = 0
-    var mainCarImage = UIImage(named: "maincar")
-    
-    private var audioPlayer = AVAudioPlayer()
-
     var backMessage = ""
-    
+    var mainCarImage = UIImage(named: "maincar")
+    // MARK: - Private properties
+    private var audioPlayer = AVAudioPlayer()
     private let step : CGFloat = 100
+    private var musicArray = ["phonk","serebro","sexy"]
+    private var currenMusic = "phonk"
+    private var newMusic = ""
+    private let musicOnImage = UIImage(named: "turnOn")
+    private let musicOffImage = UIImage(named: "turnOff")
+    private let nextMusicImage = UIImage(named: "nextMusic")
+    private let previousMusicImage = UIImage(named: "prevMusic")
     
-    private let musicOnImage = UIImage(named: "musicOn")
-    private let musicOffImage = UIImage(named: "musicOff")
-    private let musicButton = UIButton()
+    private let playMusicButton = UIButton()
+    private let nextMusicButton = UIButton()
+    private let previousMusicButton = UIButton()
     private let shopButton = UIButton()
     private let playLevelButton = UIButton()
-    private let playTimeButton = UIButton()
+    private let playEndlessButton = UIButton()
     private let mainLabel = UILabel()
-
+    
+   
+    // MARK: - IBOutlets
+    @IBOutlet weak var logoImageView: ShadowImageView!
+    @IBOutlet weak var backgroundImage: BackgroundImageView!
     
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-      
-        playLevelButton.frame.size = CGSize(width: 100, height: 50)
-        playLevelButton.layer.cornerRadius = 20
-        playLevelButton.backgroundColor = UIColor.black
-        playLevelButton.setTitle("Level", for: .normal)
-        playLevelButton.center.y = self.view.center.y
-        playLevelButton.center.x = step
-        
-        playTimeButton.frame.size = CGSize(width: 100, height: 50)
-        playTimeButton.layer.cornerRadius = 20
-        playTimeButton.backgroundColor = UIColor.black
-        playTimeButton.setTitle("Endless", for: .normal)
-        playTimeButton.center.x = self.view.frame.width - step
-        playTimeButton.center.y = self.view.center.y
-        
-        shopButton.frame.size = CGSize(width: 100, height: 50)
-        shopButton.layer.cornerRadius = 20
-        shopButton.backgroundColor = UIColor.black
-        shopButton.setTitle("Shop", for: .normal)
-        shopButton.center.x = self.view.center.x
-        shopButton.center.y = self.view.frame.height - 2 * step
-        
-        musicButton.frame.size = CGSize(width: 50, height: 50)
-        musicButton.layer.cornerRadius = 20
-        musicButton.setImage(musicOffImage, for: .normal)
-        musicButton.center.x = self.view.center.x
-        musicButton.center.y = self.view.frame.size.height - step
-        musicButton.layer.cornerRadius = 25
-    
-        mainLabel.text = "Давно тебя не было в уличных гонках"
+        mainLabel.text = ""
+        mainLabel.font = mainLabel.font.withSize(100)
         mainLabel.textAlignment = .center
-        mainLabel.textColor = .white
-        mainLabel.frame.size = CGSize(width: 350, height: 50)
+        mainLabel.textColor = .black
+        mainLabel.frame.size = CGSize(width: 350, height: 200)
         mainLabel.center.x = view.center.x
-        mainLabel.frame.origin.y = 40
-        
-        let playLevelGesture = UITapGestureRecognizer(target: self, action: #selector(toPlayLevel))
-        playLevelButton.addGestureRecognizer(playLevelGesture)
-        
-        let playTimeGesture = UITapGestureRecognizer(target: self, action: #selector(toPlayTime))
-        playTimeButton.addGestureRecognizer(playTimeGesture)
-        
-        let shopGesture = UITapGestureRecognizer(target: self, action: #selector(toShop))
-        shopButton.addGestureRecognizer(shopGesture)
-        
-        do{
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: "music", ofType: "mp3")!))
-            audioPlayer.prepareToPlay()
-            
-        }
-        
-        let musicGesture = UITapGestureRecognizer(target: self, action: #selector(playMusic))
-        musicButton.addGestureRecognizer(musicGesture)
-        
-        musicButton.alpha = 0
-        playTimeButton.alpha = 0
-        playLevelButton.alpha = 0
-        mainLabel.alpha = 0
-        shopButton.alpha = 0
-        
-        
+        mainLabel.frame.origin.y = 20
         self.view.addSubview(mainLabel)
-        self.view.addSubview(playLevelButton)
-        self.view.addSubview(playTimeButton)
-        self.view.addSubview(musicButton)
-        self.view.addSubview(shopButton)
         
-        UIView.animate(withDuration: 1, delay: 1,options: .curveEaseInOut, animations: {
-            self.musicButton.alpha = 1
-            self.playTimeButton.alpha = 1
-            self.playLevelButton.alpha = 1
-            self.mainLabel.alpha = 1
-            self.shopButton.alpha = 1        })
+        backgroundImage.makeBlur()
+        logoImageView.makeShadow()
         
-        
+        addButtons()
+        addGestures()
+        addEffects()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -129,46 +78,173 @@ class Menu: UIViewController {
     }
     
     // MARK: - Private methods
-    @objc func toPlayLevel(sender : UIButton!){
-        let destinationViewController = GameLevel()
+    @objc private func toPlayLevel(sender : UIButton!){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "GameLevel") as? GameLevel else { return }
         destinationViewController.modalPresentationStyle = .fullScreen
         guard let testImage = mainCarImage else { return }
         destinationViewController.mainCarImage = testImage
         present(destinationViewController, animated: false)
     }
     
-    @objc func toPlayTime(sender : UIButton!){
-        let destinationViewController = GameEndless()
+    @objc private func toPlayTime(sender : UIButton!){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "GameEndless") as? GameEndless else { return }
         destinationViewController.modalPresentationStyle = .fullScreen
         guard let testImage = mainCarImage else { return }
         destinationViewController.mainCarImage = testImage
         present(destinationViewController, animated: false)
     }
     
-    @objc func toShop(sende : UIButton!){
-        let destinationViewController = ShopViewController()
+    @objc private func toShop(sende : UIButton!){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as? ShopViewController else { return }
         destinationViewController.modalPresentationStyle = .fullScreen
-        destinationViewController.view.backgroundColor = .white
+        guard let testImage = mainCarImage else { return }
+        destinationViewController.mainCarImage = testImage
         destinationViewController.coins = coins
-        present(destinationViewController,animated: false)
+        present(destinationViewController, animated: false)
     }
     
-    @objc func playMusic(){
+    @objc private func playMusic(){
         if audioPlayer.isPlaying{
             audioPlayer.stop()
-            musicButton.setImage(musicOffImage, for: .normal)
+            playMusicButton.setImage(musicOffImage, for: .normal)
         } else {
             audioPlayer.play()
-            musicButton.setImage(musicOnImage, for: .normal)
+            playMusicButton.setImage(musicOnImage, for: .normal)
         }
     }
     
-    func showAlert(withMessage message: String,withTitle title: String){
+    @objc private func playNextMusic(){
+        for musicIndex in 0...musicArray.count-1{
+            if currenMusic == musicArray[musicIndex]{
+                if musicIndex != musicArray.count - 1{
+                    currenMusic = musicArray[musicIndex+1]
+                } else{
+                    currenMusic = musicArray[0]
+                }
+                break
+            }
+        }
+        playMusicButton.setImage(musicOnImage, for: .normal)
+        do{
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3")!))
+            audioPlayer.prepareToPlay()
+        }
+        audioPlayer.play()
+    }
+    @objc private func playPreviousMusic(){
+        for musicIndex in 0...musicArray.count-1{
+            if currenMusic == musicArray[musicIndex]{
+                if musicIndex != 0 {
+                    currenMusic = musicArray[musicIndex - 1]
+                } else{
+                    currenMusic = musicArray[musicArray.count-1]
+                }
+                break
+            }
+        }
+        playMusicButton.setImage(musicOnImage, for: .normal)
+        do{
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3")!))
+            audioPlayer.prepareToPlay()
+        }
+        audioPlayer.play()
+    }
+    
+    private func addGestures(){
+        let playLevelGesture = UITapGestureRecognizer(target: self, action: #selector(toPlayLevel))
+        playLevelButton.addGestureRecognizer(playLevelGesture)
+        
+        let playTimeGesture = UITapGestureRecognizer(target: self, action: #selector(toPlayTime))
+        playEndlessButton.addGestureRecognizer(playTimeGesture)
+        
+        let shopGesture = UITapGestureRecognizer(target: self, action: #selector(toShop))
+        shopButton.addGestureRecognizer(shopGesture)
+        
+        let musicGesture = UITapGestureRecognizer(target: self, action: #selector(playMusic))
+        playMusicButton.addGestureRecognizer(musicGesture)
+        let nextMusicGesture = UITapGestureRecognizer(target: self, action: #selector(playNextMusic))
+        nextMusicButton.addGestureRecognizer(nextMusicGesture)
+        let previousMusicGesture = UITapGestureRecognizer(target: self, action: #selector(playPreviousMusic))
+        previousMusicButton.addGestureRecognizer(previousMusicGesture)
+    }
+    private func addButtons(){
+        
+        playLevelButton.frame.size = CGSize(width: 100, height: 50)
+        playLevelButton.setTitle("Level", for: .normal)
+        playLevelButton.center.y = self.view.center.y
+        playLevelButton.center.x = step
+        
+        playEndlessButton.frame.size = CGSize(width: 100, height: 50)
+        playEndlessButton.setTitle("Add Later", for: .normal)
+        playEndlessButton.center.x = self.view.frame.width - step
+        playEndlessButton.center.y = self.view.center.y
+        
+        shopButton.frame.size = CGSize(width: 100, height: 50)
+        shopButton.setTitle("Shop", for: .normal)
+        shopButton.center.x = self.view.center.x
+        shopButton.center.y = self.view.frame.height - 2 * step
+        
+        playMusicButton.frame.size = CGSize(width: 50, height: 50)
+        playMusicButton.setImage(musicOffImage, for: .normal)
+        playMusicButton.center.x = self.view.center.x
+        playMusicButton.center.y = self.view.frame.size.height - step
+      
+        nextMusicButton.frame.size = CGSize(width: 50, height: 50)
+        nextMusicButton.setImage(nextMusicImage, for: .normal)
+        nextMusicButton.center.x = self.view.center.x + 75
+        nextMusicButton.center.y = self.view.frame.size.height - step
+ 
+        previousMusicButton.frame.size = CGSize(width: 50, height: 50)
+        previousMusicButton.setImage(previousMusicImage, for: .normal)
+        previousMusicButton.center.x = self.view.center.x - 75
+        previousMusicButton.center.y = self.view.frame.size.height - step
+        
+        self.view.addSubview(playLevelButton)
+        self.view.addSubview(playEndlessButton)
+        self.view.addSubview(playMusicButton)
+        self.view.addSubview(shopButton)
+        self.view.addSubview(previousMusicButton)
+        self.view.addSubview(nextMusicButton)
+        
+    }
+    
+    private func addEffects(){
+        self.shopButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        self.playEndlessButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        self.playLevelButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+   
+        playMusicButton.alpha = 0
+        playEndlessButton.alpha = 0
+        playLevelButton.alpha = 0
+        nextMusicButton.alpha = 0
+        previousMusicButton.alpha = 0
+        mainLabel.alpha = 0
+        shopButton.alpha = 0
+        logoImageView.alpha = 0
+  
+        UIView.animate(withDuration: 1.5, delay:1.5,options: .curveEaseInOut, animations: {
+            self.playMusicButton.alpha = 1
+            self.nextMusicButton.alpha = 1
+            self.previousMusicButton.alpha = 1
+            self.playEndlessButton.alpha = 1
+            self.playLevelButton.alpha = 1
+            self.mainLabel.alpha = 1
+            self.logoImageView.alpha = 1
+            self.shopButton.alpha = 1        })
+        
+        do{
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3")!))
+            audioPlayer.prepareToPlay()
+        }
+    }
+    private func showAlert(withMessage message: String,withTitle title: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Перекур", style: .default, handler: {(action:UIAlertAction!) in
         }))
-     
+        
         self.present(alert,animated: true)
     }
 }
-
