@@ -1,9 +1,3 @@
-//
-//  ViewController.swift
-//  NFSPHONKSTREETRACING2077
-//
-//  Created by Роман Денисенко on 11.10.22.
-//
 
 import UIKit
 import AVFoundation
@@ -11,15 +5,16 @@ import AVFoundation
 class Menu: UIViewController {
     
     // MARK: - Override properties
+    var destVC: ShopViewController? = nil
     var coins = 0
     var backMessage = ""
     var mainCarImage = UIImage(named: "maincar")
+    
     // MARK: - Private properties
     private var audioPlayer = AVAudioPlayer()
     private let step : CGFloat = 100
-    private var musicArray = ["phonk","serebro","sexy"]
+    private var musicArray = ["phonk","serebro","lmfao"]
     private var currenMusic = "phonk"
-    private var newMusic = ""
     private let musicOnImage = UIImage(named: "turnOn")
     private let musicOffImage = UIImage(named: "turnOff")
     private let nextMusicImage = UIImage(named: "nextMusic")
@@ -32,7 +27,6 @@ class Menu: UIViewController {
     private let playLevelButton = UIButton()
     private let playEndlessButton = UIButton()
     private let mainLabel = UILabel()
-    
    
     // MARK: - IBOutlets
     @IBOutlet weak var logoImageView: ShadowImageView!
@@ -59,10 +53,8 @@ class Menu: UIViewController {
         addEffects()
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         if  backMessage == "Капец ты слабый..."
                 || backMessage == "Так себе"
                 || backMessage == "Можно и лучше"
@@ -97,13 +89,17 @@ class Menu: UIViewController {
     }
     
     @objc private func toShop(sende : UIButton!){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as? ShopViewController else { return }
-        destinationViewController.modalPresentationStyle = .fullScreen
-        guard let testImage = mainCarImage else { return }
-        destinationViewController.mainCarImage = testImage
-        destinationViewController.coins = coins
-        present(destinationViewController, animated: false)
+        if destVC == nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as? ShopViewController else { return }
+            destinationViewController.modalPresentationStyle = .fullScreen
+            guard let testImage = mainCarImage else { return }
+            destinationViewController.mainCarImage = testImage
+            destinationViewController.coins = coins
+            destVC = destinationViewController
+        }
+        guard let destVC = destVC else { return }
+        present(destVC, animated: false)
     }
     
     @objc private func playMusic(){
@@ -129,11 +125,12 @@ class Menu: UIViewController {
         }
         playMusicButton.setImage(musicOnImage, for: .normal)
         do{
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3")!))
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
             audioPlayer.prepareToPlay()
         }
         audioPlayer.play()
     }
+    
     @objc private func playPreviousMusic(){
         for musicIndex in 0...musicArray.count-1{
             if currenMusic == musicArray[musicIndex]{
@@ -147,7 +144,7 @@ class Menu: UIViewController {
         }
         playMusicButton.setImage(musicOnImage, for: .normal)
         do{
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3")!))
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
             audioPlayer.prepareToPlay()
         }
         audioPlayer.play()
@@ -165,20 +162,21 @@ class Menu: UIViewController {
         
         let musicGesture = UITapGestureRecognizer(target: self, action: #selector(playMusic))
         playMusicButton.addGestureRecognizer(musicGesture)
+        
         let nextMusicGesture = UITapGestureRecognizer(target: self, action: #selector(playNextMusic))
         nextMusicButton.addGestureRecognizer(nextMusicGesture)
+        
         let previousMusicGesture = UITapGestureRecognizer(target: self, action: #selector(playPreviousMusic))
         previousMusicButton.addGestureRecognizer(previousMusicGesture)
     }
     private func addButtons(){
-        
         playLevelButton.frame.size = CGSize(width: 100, height: 50)
         playLevelButton.setTitle("Level", for: .normal)
         playLevelButton.center.y = self.view.center.y
         playLevelButton.center.x = step
         
         playEndlessButton.frame.size = CGSize(width: 100, height: 50)
-        playEndlessButton.setTitle("Add Later", for: .normal)
+        playEndlessButton.setTitle("Endless", for: .normal)
         playEndlessButton.center.x = self.view.frame.width - step
         playEndlessButton.center.y = self.view.center.y
         
@@ -233,13 +231,16 @@ class Menu: UIViewController {
             self.playLevelButton.alpha = 1
             self.mainLabel.alpha = 1
             self.logoImageView.alpha = 1
-            self.shopButton.alpha = 1        })
-        
+            self.shopButton.alpha = 1
+        })
+
         do{
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3")!))
+            
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
             audioPlayer.prepareToPlay()
         }
     }
+    
     private func showAlert(withMessage message: String,withTitle title: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Перекур", style: .default, handler: {(action:UIAlertAction!) in
