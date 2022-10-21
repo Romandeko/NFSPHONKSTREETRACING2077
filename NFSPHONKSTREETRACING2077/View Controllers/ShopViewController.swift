@@ -23,11 +23,11 @@ class ShopViewController: UIViewController {
     private lazy var blueSport = UIImageView(image: blueSportImage)
     private lazy var redSport = UIImageView(image: redSportImage)
     
-    private let buyLamboButton = UIButton()
-    private let yellowSportButton = UIButton()
-    private let redSportButton = UIButton()
-    private let blueSportButton = UIButton()
-    private let backButton = UIButton()
+    private let buyLamboButton = GradienButton()
+    private let yellowSportButton = GradienButton()
+    private let redSportButton = GradienButton()
+    private let blueSportButton = GradienButton()
+    private let backButton = GradienButton()
     
     private let lamboCostLabel = UILabel()
     private let yellowSportLabel = UILabel()

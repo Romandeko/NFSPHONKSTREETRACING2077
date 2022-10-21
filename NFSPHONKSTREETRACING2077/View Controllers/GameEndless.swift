@@ -98,9 +98,7 @@ class GameEndless: UIViewController {
     
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(true)
-        
         coins = 0
-        
         scoreTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(scoreUpdate), userInfo: nil, repeats: true)
         startTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(startCheck), userInfo: nil, repeats: true)
         backTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeBack), userInfo: nil, repeats: true)

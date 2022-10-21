@@ -1,7 +1,7 @@
 /// Долго не мог найти, как сделать закгругленные углы, используя градиент, который ты показывал, поэтому сделал по-другому
 import UIKit
 
-extension UIView {
+class GradienButton : UIButton {
 
 func applyGradient(colours: [UIColor], cornerRadius: CGFloat?, startPoint: CGPoint, endPoint: CGPoint)  {
     let gradient: CAGradientLayer = CAGradientLayer()

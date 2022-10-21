@@ -57,14 +57,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-6f-O6a" customClass="BackgroundView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-6f-O6a" customClass="BackgroundView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9X5-t0-q07"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ioN-6f-O6a" firstAttribute="trailing" secondItem="wO9-Mb-Qdj" secondAttribute="trailing" id="CMN-KZ-Tu4"/>
+                            <constraint firstItem="ioN-6f-O6a" firstAttribute="top" secondItem="wO9-Mb-Qdj" secondAttribute="top" id="guK-wk-70t"/>
+                            <constraint firstAttribute="bottom" secondItem="ioN-6f-O6a" secondAttribute="bottom" id="hux-1v-mKt"/>
+                            <constraint firstItem="ioN-6f-O6a" firstAttribute="leading" secondItem="wO9-Mb-Qdj" secondAttribute="leading" id="t13-Lv-tA9"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="startBlurView" destination="ioN-6f-O6a" id="qt0-bM-duu"/>
@@ -82,14 +87,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jrj-8V-7LR" customClass="BackgroundView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jrj-8V-7LR" customClass="BackgroundView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gfX-9l-IAZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Jrj-8V-7LR" firstAttribute="leading" secondItem="FWN-Eh-ImG" secondAttribute="leading" id="9LV-D7-wkR"/>
+                            <constraint firstItem="Jrj-8V-7LR" firstAttribute="trailing" secondItem="FWN-Eh-ImG" secondAttribute="trailing" id="LQc-FA-gpk"/>
+                            <constraint firstItem="Jrj-8V-7LR" firstAttribute="top" secondItem="FWN-Eh-ImG" secondAttribute="top" id="Vg1-nm-BEh"/>
+                            <constraint firstAttribute="bottom" secondItem="Jrj-8V-7LR" secondAttribute="bottom" id="Z1h-mB-dIH"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="startBlurView" destination="Jrj-8V-7LR" id="yGK-Nl-a5a"/>

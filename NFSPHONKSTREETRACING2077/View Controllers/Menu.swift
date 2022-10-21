@@ -23,11 +23,11 @@ class Menu: UIViewController {
     private let playMusicButton = UIButton()
     private let nextMusicButton = UIButton()
     private let previousMusicButton = UIButton()
-    private let shopButton = UIButton()
-    private let playLevelButton = UIButton()
-    private let playEndlessButton = UIButton()
     private let mainLabel = UILabel()
-   
+    private let shopButton = GradienButton()
+    private let playLevelButton = GradienButton()
+    private let playEndlessButton = GradienButton()
+    
     // MARK: - IBOutlets
     @IBOutlet weak var logoImageView: ShadowImageView!
     @IBOutlet weak var backgroundImage: BackgroundImageView!
@@ -125,9 +125,14 @@ class Menu: UIViewController {
         }
         playMusicButton.setImage(musicOnImage, for: .normal)
         do{
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
-            audioPlayer.prepareToPlay()
+            do{
+                audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
+                audioPlayer.prepareToPlay()
+            } catch {
+                showAlert(withMessage: "Радио сломалось", withTitle: "Ошибка")
+            }
         }
+        
         audioPlayer.play()
     }
     
@@ -144,9 +149,14 @@ class Menu: UIViewController {
         }
         playMusicButton.setImage(musicOnImage, for: .normal)
         do{
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
-            audioPlayer.prepareToPlay()
+            do{
+                audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
+                audioPlayer.prepareToPlay()
+            } catch {
+                showAlert(withMessage: "Радио сломалось", withTitle: "Ошибка")
+            }
         }
+        
         audioPlayer.play()
     }
     
@@ -189,12 +199,12 @@ class Menu: UIViewController {
         playMusicButton.setImage(musicOffImage, for: .normal)
         playMusicButton.center.x = self.view.center.x
         playMusicButton.center.y = self.view.frame.size.height - step
-      
+        
         nextMusicButton.frame.size = CGSize(width: 50, height: 50)
         nextMusicButton.setImage(nextMusicImage, for: .normal)
         nextMusicButton.center.x = self.view.center.x + 75
         nextMusicButton.center.y = self.view.frame.size.height - step
- 
+        
         previousMusicButton.frame.size = CGSize(width: 50, height: 50)
         previousMusicButton.setImage(previousMusicImage, for: .normal)
         previousMusicButton.center.x = self.view.center.x - 75
@@ -213,7 +223,7 @@ class Menu: UIViewController {
         self.shopButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         self.playEndlessButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         self.playLevelButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
-   
+        
         playMusicButton.alpha = 0
         playEndlessButton.alpha = 0
         playLevelButton.alpha = 0
@@ -222,7 +232,7 @@ class Menu: UIViewController {
         mainLabel.alpha = 0
         shopButton.alpha = 0
         logoImageView.alpha = 0
-  
+        
         UIView.animate(withDuration: 1.5, delay:1.5,options: .curveEaseInOut, animations: {
             self.playMusicButton.alpha = 1
             self.nextMusicButton.alpha = 1
@@ -233,18 +243,20 @@ class Menu: UIViewController {
             self.logoImageView.alpha = 1
             self.shopButton.alpha = 1
         })
-
+        
         do{
-            
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
-            audioPlayer.prepareToPlay()
+            do{
+                audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
+                audioPlayer.prepareToPlay()
+            } catch {
+                showAlert(withMessage: "Радио сломалось", withTitle: "Ошибка")
+            }
         }
     }
     
     private func showAlert(withMessage message: String,withTitle title: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Перекур", style: .default, handler: {(action:UIAlertAction!) in
-        }))
+        alert.addAction(UIAlertAction(title: "Перекур", style: .default))
         
         self.present(alert,animated: true)
     }
