@@ -2,12 +2,16 @@
 import UIKit
 import SnapKit
 
+private let labelAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 50)
+                               ,NSAttributedString.Key.foregroundColor:UIColor.white]
+private let buttonAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 20)
+                                ,NSAttributedString.Key.foregroundColor:UIColor.white]
+
 class ShopViewController: UIViewController {
     
     // MARK: - Override properties
     var mainCarImage = UIImage()
     var coins = 0
-    
     // MARK: - Private properties
     private let lamboBorder = UIView()
     private let yellowSportBorder = UIView()
@@ -44,6 +48,10 @@ class ShopViewController: UIViewController {
     private var stepFromButton : CGFloat = 40
     private var stepFromBorder : CGFloat = 60
     
+    private let noMoneyString = NSMutableAttributedString(string: "NO MONEY", attributes: labelAttribute as [NSAttributedString.Key : Any])
+    private let chooseString = NSMutableAttributedString(string: "Choose", attributes: buttonAttribute as [NSAttributedString.Key : Any])
+    private let againString = NSMutableAttributedString(string: "AGAIN?", attributes: labelAttribute as [NSAttributedString.Key : Any])
+    
     // MARK: - IBOutlets
     @IBOutlet weak var backImageView: BackgroundImageView!
     
@@ -52,26 +60,28 @@ class ShopViewController: UIViewController {
         super.viewDidLoad()
         
         backImageView.makeBlur()
-        
+        let backString = NSMutableAttributedString(string: "Back", attributes: buttonAttribute as [NSAttributedString.Key : Any])
         backButton.frame.size = CGSize(width: 100, height: 45)
         backButton.layer.cornerRadius = 20
         backButton.backgroundColor = UIColor.black
-        backButton.setTitle("Back", for: .normal)
+        backButton.setAttributedTitle(backString, for: .normal)
         backButton.center.x = self.view.center.x
         backButton.center.y = self.view.frame.height - 50
         view.addSubview(backButton)
         
-      addCarBorders()
-      addCarButtons()
-      addCarLabels()
-      addGradient()
-      addGestures()
-
+        addCarBorders()
+        addCarButtons()
+        addCarLabels()
+        addGradient()
+        addGestures()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        coinsLabel.text = "Coins:\(coins)"
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let coinsString = NSMutableAttributedString(string: "Coins:", attributes: buttonAttribute as [NSAttributedString.Key : Any])
+        let coinsValueString = NSMutableAttributedString(string: String(coins),attributes: buttonAttribute as [NSAttributedString.Key : Any])
+        coinsString.append(coinsValueString)
+        coinsLabel.attributedText = coinsString
         coinsLabel.textAlignment = .center
         coinsLabel.textColor = .white
         coinsLabel.frame.size = CGSize(width: 350, height: 50)
@@ -86,7 +96,7 @@ class ShopViewController: UIViewController {
     // MARK: - Private methods
     @objc private func goBack(){
         guard let parentViewController = self.presentingViewController as?
-        Menu else { return }
+                Menu else { return }
         parentViewController.coins = coins
         if isBought == false{
             dismiss(animated: false)
@@ -102,18 +112,18 @@ class ShopViewController: UIViewController {
             if coins - cost > 0 {
                 coins -= cost
             } else {
-                coinsLabel.text = "NO MONEY"
+                coinsLabel.attributedText = noMoneyString
                 return }
             coinsLabel.text = "Coins:\(coins)"
             guard let testImage = lamboImage else { return }
             mainCarImage = testImage
             isBought = true
             isLamboBought = true
-            buyLamboButton.setTitle("Choose", for: .normal)
+            buyLamboButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = lamboImage else { return }
             mainCarImage = testImage
-            coinsLabel.text = "AGAIN?"
+            coinsLabel.attributedText = againString
         }
     }
     
@@ -124,18 +134,18 @@ class ShopViewController: UIViewController {
             if coins - cost > 0 {
                 coins -= cost
             } else {
-                coinsLabel.text = "NO MONEY"
+                coinsLabel.attributedText = noMoneyString
                 return }
             coinsLabel.text = "Coins:\(coins)"
             guard let testImage = yellowSportImage else { return }
             mainCarImage = testImage
             isBought = true
             isYellowBought = true
-            yellowSportButton.setTitle("Choose", for: .normal)
+            yellowSportButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = yellowSportImage else { return }
             mainCarImage = testImage
-            coinsLabel.text = "AGAIN?"
+            coinsLabel.attributedText = againString
         }
     }
     
@@ -146,18 +156,18 @@ class ShopViewController: UIViewController {
             if coins - cost > 0 {
                 coins -= cost
             } else {
-                coinsLabel.text = "NO MONEY"
+                coinsLabel.attributedText = noMoneyString
                 return }
             coinsLabel.text = "Coins:\(coins)"
             guard let testImage = redSportImage else { return }
             mainCarImage = testImage
             isBought = true
             isRedBought = true
-            redSportButton.setTitle("Choose", for: .normal)
+            redSportButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = redSportImage else { return }
             mainCarImage = testImage
-            coinsLabel.text = "AGAIN?"
+            coinsLabel.attributedText = againString
         }
     }
     
@@ -168,18 +178,18 @@ class ShopViewController: UIViewController {
             if coins - cost > 0 {
                 coins -= cost
             } else {
-                coinsLabel.text = "NO MONEY"
+                coinsLabel.attributedText = noMoneyString
                 return }
             coinsLabel.text = "Coins:\(coins)"
             guard let testImage = blueSportImage else { return }
             mainCarImage = testImage
             isBought = true
             isBlueBought = true
-            blueSportButton.setTitle("Choose", for: .normal)
+            blueSportButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = blueSportImage else { return }
             mainCarImage = testImage
-            coinsLabel.text = "AGAIN?"
+            coinsLabel.attributedText = againString
         }
     }
     
@@ -195,7 +205,7 @@ class ShopViewController: UIViewController {
         
         let buyRedSport = UITapGestureRecognizer(target: self, action: #selector(buyRedSport))
         redSportButton.addGestureRecognizer(buyRedSport)
-
+        
         let buyBlueSport = UITapGestureRecognizer(target: self, action: #selector(buyBlueSport))
         blueSportButton.addGestureRecognizer(buyBlueSport)
     }
@@ -239,7 +249,13 @@ class ShopViewController: UIViewController {
     }
     
     private func addCarLabels(){
-        blueSportLabel.text = "7"
+        let carAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 14.0)!
+                             ,NSAttributedString.Key.foregroundColor:UIColor.white]
+        let blueCostString = NSMutableAttributedString(string: "5", attributes: carAttribute )
+        let redCostString = NSMutableAttributedString(string: "10", attributes: carAttribute )
+        let yellowCostString = NSMutableAttributedString(string: "20", attributes: carAttribute )
+        let lamboCostString = NSMutableAttributedString(string: "25", attributes: carAttribute )
+        blueSportLabel.attributedText = blueCostString
         blueSportLabel.textAlignment = .center
         blueSportLabel.textColor = .white
         blueSportLabel.font = blueSportLabel.font.withSize(30)
@@ -248,7 +264,7 @@ class ShopViewController: UIViewController {
         blueSportLabel.center.y = blueSportButton.center.y - stepFromButton
         view.addSubview(blueSportLabel)
         
-        yellowSportLabel.text = "10"
+        yellowSportLabel.attributedText = yellowCostString
         yellowSportLabel.textAlignment = .center
         yellowSportLabel.textColor = .white
         yellowSportLabel.font = yellowSportLabel.font.withSize(30)
@@ -257,7 +273,7 @@ class ShopViewController: UIViewController {
         yellowSportLabel.center.y = yellowSportButton.center.y - stepFromButton
         view.addSubview(yellowSportLabel)
         
-        redSportLabel.text = "5"
+        redSportLabel.attributedText = redCostString
         redSportLabel.textAlignment = .center
         redSportLabel.textColor = .white
         redSportLabel.font = redSportLabel.font.withSize(30)
@@ -266,7 +282,7 @@ class ShopViewController: UIViewController {
         redSportLabel.center.y = redSportButton.center.y - stepFromButton
         view.addSubview(redSportLabel)
         
-        lamboCostLabel.text = "20"
+        lamboCostLabel.attributedText = lamboCostString
         lamboCostLabel.textAlignment = .center
         lamboCostLabel.textColor = .white
         lamboCostLabel.font = lamboCostLabel.font.withSize(30)
@@ -274,31 +290,31 @@ class ShopViewController: UIViewController {
         lamboCostLabel.center.x = lamboBorder.center.x
         lamboCostLabel.center.y = buyLamboButton.center.y - stepFromButton
         view.addSubview(lamboCostLabel)
-        
     }
     
     private func addCarButtons(){
+        
+        let buyString = NSMutableAttributedString(string: "Buy", attributes: buttonAttribute as [NSAttributedString.Key : Any] )
         buyLamboButton.frame.size = CGSize(width: 100, height: 45)
         buyLamboButton.layer.cornerRadius = 20
         buyLamboButton.backgroundColor = UIColor.black
-        buyLamboButton.setTitle("Buy", for: .normal)
+        buyLamboButton.setAttributedTitle(buyString, for: .normal)
         buyLamboButton.center.x = lamboBorder.center.x
         buyLamboButton.center.y = lamboBorder.frame.maxY + stepFromBorder
         view.addSubview(buyLamboButton)
-    
+        
         redSportButton.frame.size = CGSize(width: 100, height: 45)
         redSportButton.layer.cornerRadius = 20
         redSportButton.backgroundColor = UIColor.black
-        redSportButton.setTitle("Buy", for: .normal)
+        redSportButton.setAttributedTitle(buyString, for: .normal)
         redSportButton.center.x = redSportBorder.center.x
         redSportButton.center.y = redSportBorder.frame.maxY + stepFromBorder
         view.addSubview(redSportButton)
         
-        
         yellowSportButton.frame.size = CGSize(width: 100, height: 45)
         yellowSportButton.layer.cornerRadius = 20
         yellowSportButton.backgroundColor = UIColor.black
-        yellowSportButton.setTitle("Buy", for: .normal)
+        yellowSportButton.setAttributedTitle(buyString, for: .normal)
         yellowSportButton.center.x = yellowSportBorder.center.x
         yellowSportButton.center.y = yellowSportBorder.frame.maxY + stepFromBorder
         view.addSubview(yellowSportButton)
@@ -306,7 +322,7 @@ class ShopViewController: UIViewController {
         blueSportButton.frame.size = CGSize(width: 100, height: 45)
         blueSportButton.layer.cornerRadius = 20
         blueSportButton.backgroundColor = UIColor.black
-        blueSportButton.setTitle("Buy", for: .normal)
+        blueSportButton.setAttributedTitle(buyString, for: .normal)
         blueSportButton.center.x = blueSportBorder.center.x
         blueSportButton.center.y = blueSportBorder.frame.maxY + stepFromBorder
         view.addSubview(blueSportButton)

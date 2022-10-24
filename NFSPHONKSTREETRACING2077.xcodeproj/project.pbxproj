@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F027055290559CB006A03D0 /* Comfortaa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F02705329055986006A03D0 /* Comfortaa.ttf */; };
 		3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F05585628F9C3970028DC7D /* GameEndless.swift */; };
 		3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCB628F605000082D95F /* AppDelegate.swift */; };
 		3F3ADCB928F605000082D95F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCB828F605000082D95F /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 		3F571E002900764D008697C2 /* serebro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571DFF2900764D008697C2 /* serebro.mp3 */; };
 		3F571E0229007672008697C2 /* phonk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571E0129007672008697C2 /* phonk.mp3 */; };
 		3F571E0429007F45008697C2 /* lmfao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571E0329007F45008697C2 /* lmfao.mp3 */; };
+		3F653BE82903E6E1000E4A26 /* Miratrix.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3F653BE52903E5F9000E4A26 /* Miratrix.otf */; };
 		3F6DBC7D28FE8464000286CB /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7C28FE8464000286CB /* BlurView.swift */; };
 		3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7E28FE8756000286CB /* ShadowView.swift */; };
 		3F6DBC8128FE8765000286CB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC8028FE8765000286CB /* GradientView.swift */; };
@@ -28,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F02705329055986006A03D0 /* Comfortaa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comfortaa.ttf; sourceTree = "<group>"; };
 		3F05585628F9C3970028DC7D /* GameEndless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndless.swift; sourceTree = "<group>"; };
 		3F3ADCB328F605000082D95F /* NFSPHONKSTREETRACING2077.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NFSPHONKSTREETRACING2077.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3ADCB628F605000082D95F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 		3F571DFF2900764D008697C2 /* serebro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = serebro.mp3; sourceTree = "<group>"; };
 		3F571E0129007672008697C2 /* phonk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phonk.mp3; sourceTree = "<group>"; };
 		3F571E0329007F45008697C2 /* lmfao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lmfao.mp3; sourceTree = "<group>"; };
+		3F653BE52903E5F9000E4A26 /* Miratrix.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Miratrix.otf; sourceTree = "<group>"; };
 		3F6DBC7C28FE8464000286CB /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		3F6DBC7E28FE8756000286CB /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		3F6DBC8028FE8765000286CB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -61,6 +65,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F1528072905503A004B5948 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3F3ADCB828F605000082D95F /* SceneDelegate.swift */,
+				3F3ADCB628F605000082D95F /* AppDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		3F3ADCAA28F605000082D95F = {
 			isa = PBXGroup;
 			children = (
@@ -80,18 +93,27 @@
 		3F3ADCB528F605000082D95F /* NFSPHONKSTREETRACING2077 */ = {
 			isa = PBXGroup;
 			children = (
+				3F1528072905503A004B5948 /* Resources */,
 				3F83EFF82901B7BA00B711F7 /* View Controllers */,
 				3F83EFF72901B7A700B711F7 /* Custom Views */,
 				3F83EFF92901B7CF00B711F7 /* Music */,
 				3F83EFF62901B79C00B711F7 /* Models */,
-				3F3ADCB628F605000082D95F /* AppDelegate.swift */,
-				3F3ADCB828F605000082D95F /* SceneDelegate.swift */,
+				3F653BE22903E580000E4A26 /* Fonts */,
 				3F3ADCBC28F605000082D95F /* Main.storyboard */,
 				3F3ADCBF28F605000082D95F /* Assets.xcassets */,
 				3F3ADCC128F605000082D95F /* LaunchScreen.storyboard */,
 				3F3ADCC428F605000082D95F /* Info.plist */,
 			);
 			path = NFSPHONKSTREETRACING2077;
+			sourceTree = "<group>";
+		};
+		3F653BE22903E580000E4A26 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				3F02705329055986006A03D0 /* Comfortaa.ttf */,
+				3F653BE52903E5F9000E4A26 /* Miratrix.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		3F83EFF62901B79C00B711F7 /* Models */ = {
@@ -201,7 +223,9 @@
 				3F571E0229007672008697C2 /* phonk.mp3 in Resources */,
 				3F3ADCC328F605000082D95F /* LaunchScreen.storyboard in Resources */,
 				3F571E002900764D008697C2 /* serebro.mp3 in Resources */,
+				3F653BE82903E6E1000E4A26 /* Miratrix.otf in Resources */,
 				3F3ADCC028F605000082D95F /* Assets.xcassets in Resources */,
+				3F027055290559CB006A03D0 /* Comfortaa.ttf in Resources */,
 				3F3ADCBE28F605000082D95F /* Main.storyboard in Resources */,
 				3F571E0429007F45008697C2 /* lmfao.mp3 in Resources */,
 			);

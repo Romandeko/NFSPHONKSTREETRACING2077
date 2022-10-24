@@ -35,7 +35,6 @@ class Menu: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mainLabel.text = ""
         mainLabel.font = mainLabel.font.withSize(100)
         mainLabel.textAlignment = .center
@@ -88,16 +87,16 @@ class Menu: UIViewController {
         present(destinationViewController, animated: false)
     }
     
-    @objc private func toShop(sende : UIButton!){
-        if destVC == nil {
+    @objc private func toShop(sender : UIButton!){
+        
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as? ShopViewController else { return }
             destinationViewController.modalPresentationStyle = .fullScreen
             guard let testImage = mainCarImage else { return }
             destinationViewController.mainCarImage = testImage
-            destinationViewController.coins = coins
+            destinationViewController.coins += coins
             destVC = destinationViewController
-        }
+        
         guard let destVC = destVC else { return }
         present(destVC, animated: false)
     }
@@ -180,18 +179,24 @@ class Menu: UIViewController {
         previousMusicButton.addGestureRecognizer(previousMusicGesture)
     }
     private func addButtons(){
+        let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 18.0)
+                            ,NSAttributedString.Key.foregroundColor:UIColor.white]
+        let levelString = NSMutableAttributedString(string: "Level", attributes: myAttribute as [NSAttributedString.Key : Any] )
+        let endlessString = NSMutableAttributedString(string: "Endless", attributes: myAttribute as [NSAttributedString.Key : Any] )
+        let shopString = NSMutableAttributedString(string: "Shop", attributes: myAttribute as [NSAttributedString.Key : Any] )
+  
         playLevelButton.frame.size = CGSize(width: 100, height: 50)
-        playLevelButton.setTitle("Level", for: .normal)
+        playLevelButton.setAttributedTitle(levelString, for: .normal)
         playLevelButton.center.y = self.view.center.y
         playLevelButton.center.x = step
         
         playEndlessButton.frame.size = CGSize(width: 100, height: 50)
-        playEndlessButton.setTitle("Endless", for: .normal)
+        playEndlessButton.setAttributedTitle(endlessString, for: .normal)
         playEndlessButton.center.x = self.view.frame.width - step
         playEndlessButton.center.y = self.view.center.y
         
         shopButton.frame.size = CGSize(width: 100, height: 50)
-        shopButton.setTitle("Shop", for: .normal)
+        shopButton.setAttributedTitle(shopString, for: .normal)
         shopButton.center.x = self.view.center.x
         shopButton.center.y = self.view.frame.height - 2 * step
         
