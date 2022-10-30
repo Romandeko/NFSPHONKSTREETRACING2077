@@ -1,32 +1,27 @@
 
 import UIKit
-import AVFoundation
+
+let okAction = UIAlertAction(title: "OK", style: .default)
+let step : CGFloat = 100
 
 class Menu: UIViewController {
     
     // MARK: - Override properties
     var destVC: ShopViewController? = nil
-    var coins = 0
     var backMessage = ""
     var mainCarImage = UIImage(named: "maincar")
     
-    // MARK: - Private properties
-    private var audioPlayer = AVAudioPlayer()
-    private let step : CGFloat = 100
-    private var musicArray = ["phonk","serebro","lmfao"]
-    private var currenMusic = "phonk"
-    private let musicOnImage = UIImage(named: "turnOn")
-    private let musicOffImage = UIImage(named: "turnOff")
-    private let nextMusicImage = UIImage(named: "nextMusic")
-    private let previousMusicImage = UIImage(named: "prevMusic")
     
-    private let playMusicButton = UIButton()
-    private let nextMusicButton = UIButton()
-    private let previousMusicButton = UIButton()
+    // MARK: - Private properties
+    private let scoreImage = UIImage(named: "kubokk")
+    private let settingsImage = UIImage(named: "settings")
+    private let settingsButton = UIButton()
+    private let scoreButton = UIButton()
     private let mainLabel = UILabel()
     private let shopButton = GradienButton()
     private let playLevelButton = GradienButton()
     private let playEndlessButton = GradienButton()
+    
     
     // MARK: - IBOutlets
     @IBOutlet weak var logoImageView: ShadowImageView!
@@ -35,6 +30,8 @@ class Menu: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
+
+      createReacords()
         mainLabel.text = ""
         mainLabel.font = mainLabel.font.withSize(100)
         mainLabel.textAlignment = .center
@@ -59,11 +56,12 @@ class Menu: UIViewController {
                 || backMessage == "Можно и лучше"
                 || backMessage == "КУДА ТЫ ТАК ГОНИШЬ"
         {
-            showAlert(withMessage: backMessage, withTitle: "LOSE")
+            showAlert(title: "Lose",message: backMessage,actions: [okAction])
+        
             backMessage = ""
         }
         if  backMessage == "VICTORY"{
-            showAlert(withMessage: backMessage, withTitle: "Поздравляю!")
+            showAlert(title: "Lose",message: "Поздравляю",actions: [okAction])
             backMessage = ""
         }
     }
@@ -94,70 +92,26 @@ class Menu: UIViewController {
             destinationViewController.modalPresentationStyle = .fullScreen
             guard let testImage = mainCarImage else { return }
             destinationViewController.mainCarImage = testImage
-            destinationViewController.coins += coins
+
             destVC = destinationViewController
         
         guard let destVC = destVC else { return }
         present(destVC, animated: false)
     }
-    
-    @objc private func playMusic(){
-        if audioPlayer.isPlaying{
-            audioPlayer.stop()
-            playMusicButton.setImage(musicOffImage, for: .normal)
-        } else {
-            audioPlayer.play()
-            playMusicButton.setImage(musicOnImage, for: .normal)
-        }
+    @objc private func toSettings(sender : UIButton!){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
+            destinationViewController.modalPresentationStyle = .fullScreen
+        present(destinationViewController, animated: false)
     }
     
-    @objc private func playNextMusic(){
-        for musicIndex in 0...musicArray.count-1{
-            if currenMusic == musicArray[musicIndex]{
-                if musicIndex != musicArray.count - 1{
-                    currenMusic = musicArray[musicIndex+1]
-                } else{
-                    currenMusic = musicArray[0]
-                }
-                break
-            }
-        }
-        playMusicButton.setImage(musicOnImage, for: .normal)
-        do{
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
-                audioPlayer.prepareToPlay()
-            } catch {
-                showAlert(withMessage: "Радио сломалось", withTitle: "Ошибка")
-            }
-        }
-        
-        audioPlayer.play()
+    @objc private func toLeaderBoard(sender : UIButton!){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "RecordsViewController") as? RecordsViewController else { return }
+            destinationViewController.modalPresentationStyle = .fullScreen
+        present(destinationViewController, animated: false)
     }
-    
-    @objc private func playPreviousMusic(){
-        for musicIndex in 0...musicArray.count-1{
-            if currenMusic == musicArray[musicIndex]{
-                if musicIndex != 0 {
-                    currenMusic = musicArray[musicIndex - 1]
-                } else{
-                    currenMusic = musicArray[musicArray.count-1]
-                }
-                break
-            }
-        }
-        playMusicButton.setImage(musicOnImage, for: .normal)
-        do{
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
-                audioPlayer.prepareToPlay()
-            } catch {
-                showAlert(withMessage: "Радио сломалось", withTitle: "Ошибка")
-            }
-        }
-        
-        audioPlayer.play()
-    }
+   
     
     private func addGestures(){
         let playLevelGesture = UITapGestureRecognizer(target: self, action: #selector(toPlayLevel))
@@ -169,14 +123,11 @@ class Menu: UIViewController {
         let shopGesture = UITapGestureRecognizer(target: self, action: #selector(toShop))
         shopButton.addGestureRecognizer(shopGesture)
         
-        let musicGesture = UITapGestureRecognizer(target: self, action: #selector(playMusic))
-        playMusicButton.addGestureRecognizer(musicGesture)
+        let toSettingsGestture = UITapGestureRecognizer(target: self, action: #selector(toSettings))
+        settingsButton.addGestureRecognizer(toSettingsGestture)
         
-        let nextMusicGesture = UITapGestureRecognizer(target: self, action: #selector(playNextMusic))
-        nextMusicButton.addGestureRecognizer(nextMusicGesture)
-        
-        let previousMusicGesture = UITapGestureRecognizer(target: self, action: #selector(playPreviousMusic))
-        previousMusicButton.addGestureRecognizer(previousMusicGesture)
+        let toLeaderBoard = UITapGestureRecognizer(target: self, action: #selector(toLeaderBoard))
+        scoreButton.addGestureRecognizer(toLeaderBoard)
     }
     private func addButtons(){
         let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 18.0)
@@ -200,27 +151,21 @@ class Menu: UIViewController {
         shopButton.center.x = self.view.center.x
         shopButton.center.y = self.view.frame.height - 2 * step
         
-        playMusicButton.frame.size = CGSize(width: 50, height: 50)
-        playMusicButton.setImage(musicOffImage, for: .normal)
-        playMusicButton.center.x = self.view.center.x
-        playMusicButton.center.y = self.view.frame.size.height - step
+        settingsButton.frame.size = CGSize(width: 75, height: 75)
+        settingsButton.setImage(settingsImage, for: .normal)
+        settingsButton.center.x = self.view.center.x
+        settingsButton.center.y = self.view.frame.size.height - step
         
-        nextMusicButton.frame.size = CGSize(width: 50, height: 50)
-        nextMusicButton.setImage(nextMusicImage, for: .normal)
-        nextMusicButton.center.x = self.view.center.x + 75
-        nextMusicButton.center.y = self.view.frame.size.height - step
-        
-        previousMusicButton.frame.size = CGSize(width: 50, height: 50)
-        previousMusicButton.setImage(previousMusicImage, for: .normal)
-        previousMusicButton.center.x = self.view.center.x - 75
-        previousMusicButton.center.y = self.view.frame.size.height - step
+        scoreButton.frame.size = CGSize(width: 50, height: 50)
+        scoreButton.setImage(scoreImage, for: .normal)
+        scoreButton.center = view.center
         
         self.view.addSubview(playLevelButton)
         self.view.addSubview(playEndlessButton)
-        self.view.addSubview(playMusicButton)
         self.view.addSubview(shopButton)
-        self.view.addSubview(previousMusicButton)
-        self.view.addSubview(nextMusicButton)
+        self.view.addSubview(scoreButton)
+        self.view.addSubview(settingsButton)
+        
         
     }
     
@@ -229,40 +174,25 @@ class Menu: UIViewController {
         self.playEndlessButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         self.playLevelButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         
-        playMusicButton.alpha = 0
         playEndlessButton.alpha = 0
         playLevelButton.alpha = 0
-        nextMusicButton.alpha = 0
-        previousMusicButton.alpha = 0
+        scoreButton.alpha = 0
         mainLabel.alpha = 0
         shopButton.alpha = 0
         logoImageView.alpha = 0
+        settingsButton.alpha = 0
         
         UIView.animate(withDuration: 1.5, delay:1.5,options: .curveEaseInOut, animations: {
-            self.playMusicButton.alpha = 1
-            self.nextMusicButton.alpha = 1
-            self.previousMusicButton.alpha = 1
             self.playEndlessButton.alpha = 1
             self.playLevelButton.alpha = 1
+            self.scoreButton.alpha = 1
             self.mainLabel.alpha = 1
             self.logoImageView.alpha = 1
             self.shopButton.alpha = 1
+            self.settingsButton.alpha = 1
         })
-        
-        do{
-            do{
-                audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
-                audioPlayer.prepareToPlay()
-            } catch {
-                showAlert(withMessage: "Радио сломалось", withTitle: "Ошибка")
-            }
-        }
+
     }
+
     
-    private func showAlert(withMessage message: String,withTitle title: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Перекур", style: .default))
-        
-        self.present(alert,animated: true)
-    }
 }

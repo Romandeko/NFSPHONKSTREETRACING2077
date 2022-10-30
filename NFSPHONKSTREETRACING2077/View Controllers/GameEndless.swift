@@ -1,5 +1,6 @@
-
 import UIKit
+var score = 0
+
 class GameEndless: UIViewController {
     
     // MARK: - Override properties
@@ -13,11 +14,10 @@ class GameEndless: UIViewController {
         }
     }
     private var backMessage = "Капец ты слабый..."
-    private var coins = 0
+
     private var time = 3
     private var seconds = 0
     private var scoreTimer = Timer()
-
     private var startTimer = Timer()
     private var backTimer = Timer()
     private var onlyOneCarTimer = Timer()
@@ -65,6 +65,7 @@ class GameEndless: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         rightSide = view.frame.width - 70
         center = view.center.x
         
@@ -86,7 +87,7 @@ class GameEndless: UIViewController {
     
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(true)
-        coins = 0
+        score = 0
         addTimers()
         roadAnimation()
         intersects()
@@ -105,7 +106,11 @@ class GameEndless: UIViewController {
             guard let parentViewController = self.presentingViewController as?
                     Menu else { return }
             parentViewController.backMessage = self.backMessage
-            parentViewController.coins += self.coins
+            StorageManager.shared.coins += score
+            view.layer.removeAllAnimations()
+            speed = 0
+            scoreTimer.invalidate()
+            updateRecords()
             self.dismiss(animated: false)
         }
         
@@ -166,40 +171,51 @@ class GameEndless: UIViewController {
     @objc private func updateSpeed(){
         seconds += 1
         if seconds == 125 {
-        fasterRoadAnimation(withDuration: 4, withSpeed:2)
+            fasterRoadAnimation(withDuration: 4.6, withSpeed:2.3)
             return
         }
-        if seconds == 245{
-            fasterRoadAnimation(withDuration: 3, withSpeed: 1.5)
+        if seconds == 265{
+            fasterRoadAnimation(withDuration: 4.2, withSpeed: 2.1)
+            return
         }
-        if seconds == 335{
-            fasterRoadAnimation(withDuration: 2.5, withSpeed: 1.25)
+        if seconds == 391{
+            fasterRoadAnimation(withDuration: 3.6, withSpeed: 1.8)
+            return
+        }
+        if seconds == 499{
+            fasterRoadAnimation(withDuration: 3.2, withSpeed: 1.6)
+            return
+        }
+        if seconds == 595{
+            fasterRoadAnimation(withDuration: 2.8, withSpeed: 1.4)
+            return
         }
     }
     
     @objc private func scoreUpdate(){
         guard isStarted == true else { return }
       
-        coins += 1
-        if coins > 50 && isFifty == false {
+        score += 1
+        if score > 50 && isFifty == false {
             scoreLabel.textColor = .yellow
             backMessage = "Так себе"
             isFifty = true
         }
-        if coins > 100 && isOneHundread == false {
+        if score > 100 && isOneHundread == false {
             scoreLabel.textColor = .orange
             backMessage = "Можно и лучше"
             isOneHundread = true
-            coins += 1
+            score += 1
         }
-        if coins > 200 && isTwoHundread == false {
+        if score > 200 && isTwoHundread == false {
             scoreLabel.textColor = .red
             backMessage = "КУДА ТЫ ТАК ГОНИШЬ"
             isTwoHundread = true
-            coins += 2
+            score += 2
         }
+
         let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Miratrix", size: 30)]
-        let scoreString = NSMutableAttributedString(string: String(coins), attributes: myAttribute as [NSAttributedString.Key : Any] )
+        let scoreString = NSMutableAttributedString(string: String(score), attributes: myAttribute as [NSAttributedString.Key : Any] )
         scoreLabel.attributedText = scoreString
     }
 
@@ -234,7 +250,7 @@ class GameEndless: UIViewController {
     
     // MARK: - Animations
     private func animateEnemy(enemy: UIImageView, delay : Double){
-        let distance : Double = 1050
+        let distance : Double = 1100
         let time = distance/speed
         UIImageView.animate(withDuration: time, delay: delay, options: .curveLinear, animations: {
             enemy.center.y += distance
@@ -243,11 +259,12 @@ class GameEndless: UIViewController {
             guard  let randomLine = randomLineArray.randomElement() else {return}
             enemy.center.x = CGFloat(randomLine)
             enemy.center.y = -150
+            self.speed *= 1.01
         })
     }
     
     private func animateLastEnemy(enemy: UIImageView, delay : Double){
-        let distance : Double = 1050
+        let distance : Double = 1100
         let time = distance/speed
         UIImageView.animate(withDuration: time, delay: delay, options: .curveLinear, animations: {
             enemy.center.y += distance
@@ -390,5 +407,3 @@ class GameEndless: UIViewController {
         carImageView.isUserInteractionEnabled = true
     }
 }
-
-

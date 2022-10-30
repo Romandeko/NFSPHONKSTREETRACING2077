@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F017944290B0F9600B2C6A0 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017943290B0F9600B2C6A0 /* RecordsViewController.swift */; };
+		3F017946290B0FB000B2C6A0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017945290B0FB000B2C6A0 /* SettingsViewController.swift */; };
 		3F027055290559CB006A03D0 /* Comfortaa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F02705329055986006A03D0 /* Comfortaa.ttf */; };
 		3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F05585628F9C3970028DC7D /* GameEndless.swift */; };
+		3F3956E5290B2CB500C49784 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3956E4290B2CB500C49784 /* StorageManager.swift */; };
 		3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCB628F605000082D95F /* AppDelegate.swift */; };
 		3F3ADCB928F605000082D95F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCB828F605000082D95F /* SceneDelegate.swift */; };
 		3F3ADCBB28F605000082D95F /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3ADCBA28F605000082D95F /* Menu.swift */; };
@@ -22,16 +25,22 @@
 		3F571E0229007672008697C2 /* phonk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571E0129007672008697C2 /* phonk.mp3 */; };
 		3F571E0429007F45008697C2 /* lmfao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F571E0329007F45008697C2 /* lmfao.mp3 */; };
 		3F653BE82903E6E1000E4A26 /* Miratrix.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3F653BE52903E5F9000E4A26 /* Miratrix.otf */; };
+		3F6DB95A290C7E4F001EC6D4 /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DB959290C7E4F001EC6D4 /* Variables.swift */; };
 		3F6DBC7D28FE8464000286CB /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7C28FE8464000286CB /* BlurView.swift */; };
 		3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7E28FE8756000286CB /* ShadowView.swift */; };
 		3F6DBC8128FE8765000286CB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC8028FE8765000286CB /* GradientView.swift */; };
 		3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD5C0828FC518C0016D95D /* ShopViewController.swift */; };
+		3FC8197A290D353700B7F810 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC81979290D353700B7F810 /* Player.swift */; };
+		3FD09AF729094E2200A2264F /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD09AF629094E2200A2264F /* UIViewController+Alert.swift */; };
 		3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFAB82728FDD03700E08645 /* CustomViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F017943290B0F9600B2C6A0 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		3F017945290B0FB000B2C6A0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3F02705329055986006A03D0 /* Comfortaa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comfortaa.ttf; sourceTree = "<group>"; };
 		3F05585628F9C3970028DC7D /* GameEndless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndless.swift; sourceTree = "<group>"; };
+		3F3956E4290B2CB500C49784 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		3F3ADCB328F605000082D95F /* NFSPHONKSTREETRACING2077.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NFSPHONKSTREETRACING2077.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3ADCB628F605000082D95F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3ADCB828F605000082D95F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,10 +55,13 @@
 		3F571E0129007672008697C2 /* phonk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = phonk.mp3; sourceTree = "<group>"; };
 		3F571E0329007F45008697C2 /* lmfao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lmfao.mp3; sourceTree = "<group>"; };
 		3F653BE52903E5F9000E4A26 /* Miratrix.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Miratrix.otf; sourceTree = "<group>"; };
+		3F6DB959290C7E4F001EC6D4 /* Variables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		3F6DBC7C28FE8464000286CB /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		3F6DBC7E28FE8756000286CB /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		3F6DBC8028FE8765000286CB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3FBD5C0828FC518C0016D95D /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		3FC81979290D353700B7F810 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		3FD09AF629094E2200A2264F /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		3FFAB82728FDD03700E08645 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +109,7 @@
 				3F83EFF82901B7BA00B711F7 /* View Controllers */,
 				3F83EFF72901B7A700B711F7 /* Custom Views */,
 				3F83EFF92901B7CF00B711F7 /* Music */,
-				3F83EFF62901B79C00B711F7 /* Models */,
+				3F83EFF62901B79C00B711F7 /* Additions */,
 				3F653BE22903E580000E4A26 /* Fonts */,
 				3F3ADCBC28F605000082D95F /* Main.storyboard */,
 				3F3ADCBF28F605000082D95F /* Assets.xcassets */,
@@ -116,12 +128,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		3F83EFF62901B79C00B711F7 /* Models */ = {
+		3F83EFF62901B79C00B711F7 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
 				3F4E98D528F6E30F00FB734F /* Location.swift */,
+				3F6DB959290C7E4F001EC6D4 /* Variables.swift */,
+				3FC81979290D353700B7F810 /* Player.swift */,
 			);
-			path = Models;
+			path = Additions;
 			sourceTree = "<group>";
 		};
 		3F83EFF72901B7A700B711F7 /* Custom Views */ = {
@@ -131,6 +145,7 @@
 				3F6DBC7C28FE8464000286CB /* BlurView.swift */,
 				3F6DBC7E28FE8756000286CB /* ShadowView.swift */,
 				3F6DBC8028FE8765000286CB /* GradientView.swift */,
+				3FD09AF629094E2200A2264F /* UIViewController+Alert.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -142,6 +157,9 @@
 				3F3ADCCA28F6050E0082D95F /* GameLevel.swift */,
 				3F05585628F9C3970028DC7D /* GameEndless.swift */,
 				3FBD5C0828FC518C0016D95D /* ShopViewController.swift */,
+				3F017943290B0F9600B2C6A0 /* RecordsViewController.swift */,
+				3F017945290B0FB000B2C6A0 /* SettingsViewController.swift */,
+				3F3956E4290B2CB500C49784 /* StorageManager.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -241,13 +259,19 @@
 				3F3ADCCB28F6050E0082D95F /* GameLevel.swift in Sources */,
 				3F3ADCBB28F605000082D95F /* Menu.swift in Sources */,
 				3F6DBC8128FE8765000286CB /* GradientView.swift in Sources */,
+				3F6DB95A290C7E4F001EC6D4 /* Variables.swift in Sources */,
+				3FD09AF729094E2200A2264F /* UIViewController+Alert.swift in Sources */,
 				3F4E98D628F6E30F00FB734F /* Location.swift in Sources */,
 				3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */,
 				3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */,
 				3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */,
 				3F6DBC7D28FE8464000286CB /* BlurView.swift in Sources */,
+				3F017946290B0FB000B2C6A0 /* SettingsViewController.swift in Sources */,
 				3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */,
 				3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */,
+				3F3956E5290B2CB500C49784 /* StorageManager.swift in Sources */,
+				3F017944290B0F9600B2C6A0 /* RecordsViewController.swift in Sources */,
+				3FC8197A290D353700B7F810 /* Player.swift in Sources */,
 				3F3ADCB928F605000082D95F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

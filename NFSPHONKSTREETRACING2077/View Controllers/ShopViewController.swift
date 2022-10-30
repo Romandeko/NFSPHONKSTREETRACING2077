@@ -2,16 +2,23 @@
 import UIKit
 import SnapKit
 
-private let labelAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 50)
+ let labelAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 50)
                                ,NSAttributedString.Key.foregroundColor:UIColor.white]
-private let buttonAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 20)
+ let buttonAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 20)
                                 ,NSAttributedString.Key.foregroundColor:UIColor.white]
+let buyString = NSMutableAttributedString(string: "Buy", attributes: buttonAttribute as [NSAttributedString.Key : Any] )
+let chooseString = NSMutableAttributedString(string: "Choose", attributes: buttonAttribute as [NSAttributedString.Key : Any])
+
+ let buyLamboButton = GradienButton()
+ let yellowSportButton = GradienButton()
+ let redSportButton = GradienButton()
+ let blueSportButton = GradienButton()
 
 class ShopViewController: UIViewController {
     
     // MARK: - Override properties
     var mainCarImage = UIImage()
-    var coins = 0
+    
     // MARK: - Private properties
     private let lamboBorder = UIView()
     private let yellowSportBorder = UIView()
@@ -27,30 +34,18 @@ class ShopViewController: UIViewController {
     private lazy var blueSport = UIImageView(image: blueSportImage)
     private lazy var redSport = UIImageView(image: redSportImage)
     
-    private let buyLamboButton = GradienButton()
-    private let yellowSportButton = GradienButton()
-    private let redSportButton = GradienButton()
-    private let blueSportButton = GradienButton()
+
     private let backButton = GradienButton()
     
     private let lamboCostLabel = UILabel()
     private let yellowSportLabel = UILabel()
     private let redSportLabel = UILabel()
     private let blueSportLabel = UILabel()
-    private let coinsLabel = UILabel()
-    
-    private var isBought = false
-    private var isLamboBought = false
-    private var isYellowBought = false
-    private var isRedBought = false
-    private var isBlueBought = false
+    private let moneyLabel = UILabel()
     
     private var stepFromButton : CGFloat = 40
     private var stepFromBorder : CGFloat = 60
-    
-    private let noMoneyString = NSMutableAttributedString(string: "NO MONEY", attributes: labelAttribute as [NSAttributedString.Key : Any])
-    private let chooseString = NSMutableAttributedString(string: "Choose", attributes: buttonAttribute as [NSAttributedString.Key : Any])
-    private let againString = NSMutableAttributedString(string: "AGAIN?", attributes: labelAttribute as [NSAttributedString.Key : Any])
+  
     
     // MARK: - IBOutlets
     @IBOutlet weak var backImageView: BackgroundImageView!
@@ -58,7 +53,7 @@ class ShopViewController: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        moneyLabel.text = String(StorageManager.shared.coins)
         backImageView.makeBlur()
         let backString = NSMutableAttributedString(string: "Back", attributes: buttonAttribute as [NSAttributedString.Key : Any])
         backButton.frame.size = CGSize(width: 100, height: 45)
@@ -79,16 +74,17 @@ class ShopViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let coinsString = NSMutableAttributedString(string: "Coins:", attributes: buttonAttribute as [NSAttributedString.Key : Any])
-        let coinsValueString = NSMutableAttributedString(string: String(coins),attributes: buttonAttribute as [NSAttributedString.Key : Any])
+        let coinsValueString = NSMutableAttributedString(string: String(StorageManager.shared.coins),attributes: buttonAttribute as [NSAttributedString.Key : Any])
         coinsString.append(coinsValueString)
-        coinsLabel.attributedText = coinsString
-        coinsLabel.textAlignment = .center
-        coinsLabel.textColor = .white
-        coinsLabel.frame.size = CGSize(width: 350, height: 50)
-        coinsLabel.font = coinsLabel.font.withSize(50)
-        coinsLabel.center.x = view.center.x
-        coinsLabel.frame.origin.y = 50
-        view.addSubview(coinsLabel)
+        
+        moneyLabel.attributedText = coinsString
+        moneyLabel.textAlignment = .center
+        moneyLabel.textColor = .white
+        moneyLabel.frame.size = CGSize(width: 350, height: 50)
+        moneyLabel.font = moneyLabel.font.withSize(50)
+        moneyLabel.center.x = view.center.x
+        moneyLabel.frame.origin.y = 50
+        view.addSubview(moneyLabel)
         
         addConstraints()
     }
@@ -97,99 +93,89 @@ class ShopViewController: UIViewController {
     @objc private func goBack(){
         guard let parentViewController = self.presentingViewController as?
                 Menu else { return }
-        parentViewController.coins = coins
-        if isBought == false{
-            dismiss(animated: false)
-        }else{
             parentViewController.mainCarImage = mainCarImage
-            dismiss(animated: false)}
+            dismiss(animated: false)
     }
     
-    @objc private func buyBugatti(){
-        if isLamboBought == false{
+    @objc private func buyLambo(){
+        if StorageManager.shared.isLamboBought == false{
             guard let stringCost = lamboCostLabel.text else { return }
             guard let cost = Int(stringCost) else { return }
-            if coins - cost > 0 {
-                coins -= cost
+            if StorageManager.shared.coins - cost >= 0 {
+                StorageManager.shared.coins -= cost
             } else {
-                coinsLabel.attributedText = noMoneyString
+                showAlert(title: "Ошибка",message: "Ну ты и нищеброд",actions: [okAction])
                 return }
-            coinsLabel.text = "Coins:\(coins)"
+            moneyLabel.text = "Coins:\(StorageManager.shared.coins)"
             guard let testImage = lamboImage else { return }
             mainCarImage = testImage
-            isBought = true
-            isLamboBought = true
+            StorageManager.shared.isLamboBought = true
             buyLamboButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = lamboImage else { return }
             mainCarImage = testImage
-            coinsLabel.attributedText = againString
         }
     }
     
     @objc private func buyYellowSport(){
-        if isYellowBought == false{
+        if StorageManager.shared.isYellowBought == false{
             guard let stringCost = yellowSportLabel.text else { return }
             guard let cost = Int(stringCost) else { return }
-            if coins - cost > 0 {
-                coins -= cost
+            if StorageManager.shared.coins - cost >= 0 {
+                StorageManager.shared.coins -= cost
             } else {
-                coinsLabel.attributedText = noMoneyString
+                showAlert(title: "Ошибка",message: "Ну ты и нищеброд",actions: [okAction])
                 return }
-            coinsLabel.text = "Coins:\(coins)"
+            moneyLabel.text = "Coins:\(StorageManager.shared.coins)"
             guard let testImage = yellowSportImage else { return }
             mainCarImage = testImage
-            isBought = true
-            isYellowBought = true
+            StorageManager.shared.isYellowBought = true
             yellowSportButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = yellowSportImage else { return }
             mainCarImage = testImage
-            coinsLabel.attributedText = againString
+          
         }
     }
     
     @objc private func buyRedSport(){
-        if isRedBought == false{
+        if StorageManager.shared.isRedBought == false{
             guard let stringCost = redSportLabel.text else { return }
             guard let cost = Int(stringCost) else { return }
-            if coins - cost > 0 {
-                coins -= cost
+            if StorageManager.shared.coins - cost >= 0 {
+                StorageManager.shared.coins -= cost
             } else {
-                coinsLabel.attributedText = noMoneyString
+                showAlert(title: "Ошибка",message: "Ну ты и нищеброд",actions: [okAction])
                 return }
-            coinsLabel.text = "Coins:\(coins)"
+            moneyLabel.text = "Coins:\(StorageManager.shared.coins)"
             guard let testImage = redSportImage else { return }
             mainCarImage = testImage
-            isBought = true
-            isRedBought = true
+            StorageManager.shared.isRedBought = true
             redSportButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = redSportImage else { return }
             mainCarImage = testImage
-            coinsLabel.attributedText = againString
+
         }
     }
     
     @objc private func buyBlueSport(){
-        if isBlueBought == false{
+        if StorageManager.shared.isBlueBought == false{
             guard let stringCost = blueSportLabel.text else { return }
             guard let cost = Int(stringCost) else { return }
-            if coins - cost > 0 {
-                coins -= cost
+            if StorageManager.shared.coins - cost >= 0 {
+                StorageManager.shared.coins -= cost
             } else {
-                coinsLabel.attributedText = noMoneyString
+                showAlert(title: "Ошибка",message: "Ну ты и нищеброд",actions: [okAction])
                 return }
-            coinsLabel.text = "Coins:\(coins)"
+            moneyLabel.text = "Coins:\(StorageManager.shared.coins)"
             guard let testImage = blueSportImage else { return }
             mainCarImage = testImage
-            isBought = true
-            isBlueBought = true
+            StorageManager.shared.isBlueBought  = true
             blueSportButton.setAttributedTitle(chooseString, for: .normal)
         } else{
             guard let testImage = blueSportImage else { return }
             mainCarImage = testImage
-            coinsLabel.attributedText = againString
         }
     }
     
@@ -197,7 +183,7 @@ class ShopViewController: UIViewController {
         let goBack = UITapGestureRecognizer(target: self, action: #selector(goBack))
         backButton.addGestureRecognizer(goBack)
         
-        let buyBugatti = UITapGestureRecognizer(target: self, action: #selector(buyBugatti))
+        let buyBugatti = UITapGestureRecognizer(target: self, action: #selector(buyLambo))
         buyLamboButton.addGestureRecognizer(buyBugatti)
         
         let buyYellowSport = UITapGestureRecognizer(target: self, action: #selector(buyYellowSport))
@@ -211,14 +197,15 @@ class ShopViewController: UIViewController {
     }
     
     private func addGradient(){
-        self.buyLamboButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
-        self.yellowSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
-        self.redSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
-        self.blueSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
-        self.backButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        buyLamboButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        yellowSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+      redSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        blueSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        backButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
     }
     
     private func addConstraints(){
+       
         lambo.snp.makeConstraints{ make in
             make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)
@@ -294,37 +281,53 @@ class ShopViewController: UIViewController {
     
     private func addCarButtons(){
         
-        let buyString = NSMutableAttributedString(string: "Buy", attributes: buttonAttribute as [NSAttributedString.Key : Any] )
+        
         buyLamboButton.frame.size = CGSize(width: 100, height: 45)
         buyLamboButton.layer.cornerRadius = 20
         buyLamboButton.backgroundColor = UIColor.black
-        buyLamboButton.setAttributedTitle(buyString, for: .normal)
         buyLamboButton.center.x = lamboBorder.center.x
         buyLamboButton.center.y = lamboBorder.frame.maxY + stepFromBorder
+        if StorageManager.shared.isLamboBought == true{
+            buyLamboButton.setAttributedTitle(chooseString, for: .normal)
+        } else{
+            buyLamboButton.setAttributedTitle(buyString, for: .normal)
+        }
         view.addSubview(buyLamboButton)
         
         redSportButton.frame.size = CGSize(width: 100, height: 45)
         redSportButton.layer.cornerRadius = 20
         redSportButton.backgroundColor = UIColor.black
-        redSportButton.setAttributedTitle(buyString, for: .normal)
         redSportButton.center.x = redSportBorder.center.x
         redSportButton.center.y = redSportBorder.frame.maxY + stepFromBorder
+        if StorageManager.shared.isRedBought == true{
+            redSportButton.setAttributedTitle(chooseString, for: .normal)
+        } else{
+            redSportButton.setAttributedTitle(buyString, for: .normal)
+        }
         view.addSubview(redSportButton)
         
         yellowSportButton.frame.size = CGSize(width: 100, height: 45)
         yellowSportButton.layer.cornerRadius = 20
         yellowSportButton.backgroundColor = UIColor.black
-        yellowSportButton.setAttributedTitle(buyString, for: .normal)
         yellowSportButton.center.x = yellowSportBorder.center.x
         yellowSportButton.center.y = yellowSportBorder.frame.maxY + stepFromBorder
+        if StorageManager.shared.isYellowBought == true{
+            yellowSportButton.setAttributedTitle(chooseString, for: .normal)
+        } else{
+            yellowSportButton.setAttributedTitle(buyString, for: .normal)
+        }
         view.addSubview(yellowSportButton)
         
         blueSportButton.frame.size = CGSize(width: 100, height: 45)
         blueSportButton.layer.cornerRadius = 20
         blueSportButton.backgroundColor = UIColor.black
-        blueSportButton.setAttributedTitle(buyString, for: .normal)
         blueSportButton.center.x = blueSportBorder.center.x
         blueSportButton.center.y = blueSportBorder.frame.maxY + stepFromBorder
+        if StorageManager.shared.isBlueBought == true{
+            blueSportButton.setAttributedTitle(chooseString, for: .normal)
+        } else{
+            blueSportButton.setAttributedTitle(buyString, for: .normal)
+        }
         view.addSubview(blueSportButton)
     }
     

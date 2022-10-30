@@ -6,7 +6,6 @@ protocol BlurView where Self : UIView{
 }
 extension BlurView {
     func makeBlur() {
-        
         let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = bounds

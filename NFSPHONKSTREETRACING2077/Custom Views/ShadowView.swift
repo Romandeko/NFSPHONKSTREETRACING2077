@@ -1,6 +1,5 @@
 
 import UIKit
-
 protocol ShadowView where Self:UIView{
     func makeShadow(color: UIColor, shadowOpacity: Float, shadowOffset: CGSize, shadowRadius: CGFloat)
 }

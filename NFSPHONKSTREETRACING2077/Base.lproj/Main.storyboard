@@ -138,6 +138,75 @@
             </objects>
             <point key="canvasLocation" x="2286" y="11"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="uKv-KJ-TtD">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="A2Z-S9-6op" customClass="SettingsViewController" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sha-AH-B6O">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="dod-dm-5uM" customClass="BackgroundImageView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HtC-65-TAj">
+                                <rect key="frame" x="120" y="77" width="150" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="UTg-eb-HoN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lPY-uL-58S"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dod-dm-5uM" firstAttribute="top" secondItem="sha-AH-B6O" secondAttribute="top" id="CoA-5S-ZRQ"/>
+                            <constraint firstItem="HtC-65-TAj" firstAttribute="top" secondItem="lPY-uL-58S" secondAttribute="top" constant="30" id="DbD-YP-Evm"/>
+                            <constraint firstItem="HtC-65-TAj" firstAttribute="centerX" secondItem="sha-AH-B6O" secondAttribute="centerX" id="FLm-Lp-s8d"/>
+                            <constraint firstItem="dod-dm-5uM" firstAttribute="leading" secondItem="sha-AH-B6O" secondAttribute="leading" id="VmM-Dz-GQ0"/>
+                            <constraint firstItem="dod-dm-5uM" firstAttribute="trailing" secondItem="sha-AH-B6O" secondAttribute="trailing" id="miy-wu-1KA"/>
+                            <constraint firstAttribute="bottom" secondItem="dod-dm-5uM" secondAttribute="bottom" id="rGY-qa-PZz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backImageView" destination="dod-dm-5uM" id="3Iq-Bv-YzH"/>
+                        <outlet property="nameTextField" destination="HtC-65-TAj" id="MnK-Be-XpN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ye9-QS-vkP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3021.5384615384614" y="10.663507109004739"/>
+        </scene>
+        <!--Records View Controller-->
+        <scene sceneID="htY-J8-ppe">
+            <objects>
+                <viewController storyboardIdentifier="RecordsViewController" id="J2E-qV-QNI" customClass="RecordsViewController" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vvC-qd-O4y">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background1" translatesAutoresizingMaskIntoConstraints="NO" id="KLr-0J-ZD8" customClass="BackgroundImageView" customModule="NFSPHONKSTREETRACING2077" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MDy-V5-qOH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KLr-0J-ZD8" firstAttribute="trailing" secondItem="vvC-qd-O4y" secondAttribute="trailing" id="8kR-jS-CkT"/>
+                            <constraint firstAttribute="bottom" secondItem="KLr-0J-ZD8" secondAttribute="bottom" id="Baz-1k-vgn"/>
+                            <constraint firstItem="KLr-0J-ZD8" firstAttribute="top" secondItem="vvC-qd-O4y" secondAttribute="top" id="mi8-bF-aVy"/>
+                            <constraint firstItem="KLr-0J-ZD8" firstAttribute="leading" secondItem="vvC-qd-O4y" secondAttribute="leading" id="oYC-6J-m4Z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backImageView" destination="KLr-0J-ZD8" id="n6N-It-yRH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OlG-jO-ceq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3830.7692307692305" y="10.663507109004739"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background1" width="1080" height="1892"/>

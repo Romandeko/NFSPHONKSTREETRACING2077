@@ -13,7 +13,7 @@ class GameLevel: UIViewController {
         }
     }
     private var backMessage = "Капец ты слабый..."
-    private var coins = 0
+    private var score = 0
     private var time = 3
     private var scoreTimer = Timer()
     private var finalTimer = Timer()
@@ -86,7 +86,7 @@ class GameLevel: UIViewController {
     
     override func viewDidAppear(_ animated: Bool){
         super.viewDidAppear(true)
-        coins = 0
+        score = 0
         addTimers()
         roadAnimation()
         intersects()
@@ -105,7 +105,10 @@ class GameLevel: UIViewController {
             guard let parentViewController = self.presentingViewController as?
                     Menu else { return }
             parentViewController.backMessage = self.backMessage
-            parentViewController.coins += self.coins
+            StorageManager.shared.coins += score
+            view.layer.removeAllAnimations()
+            speed = 0
+            scoreTimer.invalidate()
             self.dismiss(animated: false)
         }
         
@@ -168,28 +171,14 @@ class GameLevel: UIViewController {
     
     @objc private func scoreUpdate(){
         guard isStarted == true else { return }
-        coins += 1
-        if coins > 50 && isFifty == false {
+        score += 1
+        if score > 50 && isFifty == false {
             scoreLabel.textColor = .yellow
             backMessage = "Так себе"
             isFifty = true
         }
-        if coins > 100 && isOneHundread == false {
-            scoreLabel.textColor = .orange
-            backMessage = "Можно и лучше"
-            isOneHundread = true
-            coins += 1
-        }
-        if coins > 200 && isTwoHundread == false {
-            scoreLabel.textColor = .red
-            backMessage = "КУДА ТЫ ТАК ГОНИШЬ"
-            isTwoHundread = true
-            coins += 2
-            let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Miratrix", size: 30)
-                                ,NSAttributedString.Key.foregroundColor:UIColor.white]
-        }
         let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Miratrix", size: 30)]
-        let scoreString = NSMutableAttributedString(string: String(coins), attributes: myAttribute as [NSAttributedString.Key : Any] )
+        let scoreString = NSMutableAttributedString(string: String(score), attributes: myAttribute as [NSAttributedString.Key : Any] )
         scoreLabel.attributedText = scoreString
     }
     
@@ -198,7 +187,7 @@ class GameLevel: UIViewController {
         if secondsCounter == 24{
             guard let parentViewController = self.presentingViewController as?
                     Menu else { return }
-            parentViewController.coins += 500
+            StorageManager.shared.coins += 500
             parentViewController.backMessage = "VICTORY"
             dismiss(animated: false)
         }
