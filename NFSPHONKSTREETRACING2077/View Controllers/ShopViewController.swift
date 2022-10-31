@@ -2,17 +2,17 @@
 import UIKit
 import SnapKit
 
- let labelAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 50)
-                               ,NSAttributedString.Key.foregroundColor:UIColor.white]
- let buttonAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 20)
-                                ,NSAttributedString.Key.foregroundColor:UIColor.white]
+let labelAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 50)
+                       ,NSAttributedString.Key.foregroundColor:UIColor.white]
+let buttonAttribute = [ NSAttributedString.Key.font: UIFont(name: "Comfortaa", size: 20)
+                        ,NSAttributedString.Key.foregroundColor:UIColor.white]
 let buyString = NSMutableAttributedString(string: "Buy", attributes: buttonAttribute as [NSAttributedString.Key : Any] )
 let chooseString = NSMutableAttributedString(string: "Choose", attributes: buttonAttribute as [NSAttributedString.Key : Any])
 
- let buyLamboButton = GradienButton()
- let yellowSportButton = GradienButton()
- let redSportButton = GradienButton()
- let blueSportButton = GradienButton()
+let buyLamboButton = GradienButton()
+let yellowSportButton = GradienButton()
+let redSportButton = GradienButton()
+let blueSportButton = GradienButton()
 
 class ShopViewController: UIViewController {
     
@@ -34,7 +34,7 @@ class ShopViewController: UIViewController {
     private lazy var blueSport = UIImageView(image: blueSportImage)
     private lazy var redSport = UIImageView(image: redSportImage)
     
-
+    
     private let backButton = GradienButton()
     
     private let lamboCostLabel = UILabel()
@@ -45,7 +45,7 @@ class ShopViewController: UIViewController {
     
     private var stepFromButton : CGFloat = 40
     private var stepFromBorder : CGFloat = 60
-  
+    
     
     // MARK: - IBOutlets
     @IBOutlet weak var backImageView: BackgroundImageView!
@@ -93,8 +93,8 @@ class ShopViewController: UIViewController {
     @objc private func goBack(){
         guard let parentViewController = self.presentingViewController as?
                 Menu else { return }
-            parentViewController.mainCarImage = mainCarImage
-            dismiss(animated: false)
+        parentViewController.mainCarImage = mainCarImage
+        dismiss(animated: false)
     }
     
     @objc private func buyLambo(){
@@ -134,7 +134,7 @@ class ShopViewController: UIViewController {
         } else{
             guard let testImage = yellowSportImage else { return }
             mainCarImage = testImage
-          
+            
         }
     }
     
@@ -155,7 +155,7 @@ class ShopViewController: UIViewController {
         } else{
             guard let testImage = redSportImage else { return }
             mainCarImage = testImage
-
+            
         }
     }
     
@@ -199,13 +199,13 @@ class ShopViewController: UIViewController {
     private func addGradient(){
         buyLamboButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         yellowSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
-      redSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        redSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         blueSportButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
         backButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
     }
     
     private func addConstraints(){
-       
+        
         lambo.snp.makeConstraints{ make in
             make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)

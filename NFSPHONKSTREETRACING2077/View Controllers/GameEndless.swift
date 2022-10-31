@@ -14,7 +14,7 @@ class GameEndless: UIViewController {
         }
     }
     private var backMessage = "Капец ты слабый..."
-
+    
     private var time = 3
     private var seconds = 0
     private var scoreTimer = Timer()
@@ -65,7 +65,7 @@ class GameEndless: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
         rightSide = view.frame.width - 70
         center = view.center.x
         
@@ -194,7 +194,7 @@ class GameEndless: UIViewController {
     
     @objc private func scoreUpdate(){
         guard isStarted == true else { return }
-      
+        
         score += 1
         if score > 50 && isFifty == false {
             scoreLabel.textColor = .yellow
@@ -213,12 +213,12 @@ class GameEndless: UIViewController {
             isTwoHundread = true
             score += 2
         }
-
+        
         let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Miratrix", size: 30)]
         let scoreString = NSMutableAttributedString(string: String(score), attributes: myAttribute as [NSAttributedString.Key : Any] )
         scoreLabel.attributedText = scoreString
     }
-
+    
     @objc private func timeBack(){
         if timeLabel.text  == "1" {
             timeLabel.text = "GO"
@@ -284,7 +284,7 @@ class GameEndless: UIViewController {
         animateEnemy(enemy: greenEnemy, delay: 3.6)
         animateEnemy(enemy: taxiEnemy, delay: 4.8)
     }
- 
+    
     private func roadAnimation(){
         UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){
             self.roadImageView.center.y += 900
@@ -362,7 +362,7 @@ class GameEndless: UIViewController {
             }
         }
     }
-
+    
     private func enemiesStartLayout(){
         
         let randomLineArray = [self.leftSide,self.center,self.rightSide]

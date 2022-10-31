@@ -1,5 +1,4 @@
 
-
 import UIKit
 protocol BlurView where Self : UIView{
     func makeBlur()

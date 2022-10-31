@@ -1,6 +1,7 @@
 
 import UIKit
 import AVFoundation
+
 var name = ""
 class SettingsViewController: UIViewController {
     
@@ -28,7 +29,6 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         backImageView.makeBlur()
         addLabelsAndButtons()
-        
         do{
             do{
                 audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: currenMusic, ofType: "mp3") ?? musicArray[0]))
@@ -38,14 +38,12 @@ class SettingsViewController: UIViewController {
             }
         }
     }
-  
     
     // MARK: - Private methods
     private func addLabelsAndButtons(){
         let backString = NSMutableAttributedString(string: "Back", attributes: buttonAttribute as [NSAttributedString.Key : Any])
         let addString = NSMutableAttributedString(string: "Add", attributes: buttonAttribute as [NSAttributedString.Key : Any])
-      
-    
+        
         nameLabel.text = "Your name is : \(StorageManager.shared.name)"
         nameLabel.font = nameLabel.font.withSize(30)
         nameLabel.textAlignment = .center
@@ -110,9 +108,12 @@ class SettingsViewController: UIViewController {
     }
     
     @objc private func goBack(){
-            dismiss(animated: false)
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationVC = storyboard.instantiateViewController(withIdentifier: "Menu") as? Menu else {return}
+        destinationVC.modalPresentationStyle = .fullScreen
+        present(destinationVC,animated: false)
     }
+    
     @objc private func addNewName(){
         StorageManager.shared.name = nameTextField.text ?? ""
         nameLabel.text = "Your name is : \(StorageManager.shared.name)"

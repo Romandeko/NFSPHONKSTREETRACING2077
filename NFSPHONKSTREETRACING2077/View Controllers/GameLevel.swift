@@ -166,7 +166,7 @@ class GameLevel: UIViewController {
         startTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(startCheck), userInfo: nil, repeats: true)
         backTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeBack), userInfo: nil, repeats: true)
         isLastOnRoadTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(checkLastCar), userInfo: nil, repeats: true)
-
+        
     }
     
     @objc private func scoreUpdate(){
@@ -271,9 +271,9 @@ class GameLevel: UIViewController {
         UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){
             self.lastRoadImageView.center.y += self.roadDistance
         }
-          UIImageView.animate(withDuration: 5, delay: 19.5, options: [.curveLinear, .repeat] ){
-         self.finalRoadImageView.center.y += self.roadDistance
-         }
+        UIImageView.animate(withDuration: 5, delay: 19.5, options: [.curveLinear, .repeat] ){
+            self.finalRoadImageView.center.y += self.roadDistance
+        }
     }
     
     // MARK: - Layouts
@@ -310,7 +310,7 @@ class GameLevel: UIViewController {
             }
         }
     }
-
+    
     private func enemiesStartLayout(){
         
         let randomLineArray = [self.leftSide,self.center,self.rightSide]

@@ -1,5 +1,6 @@
 
 import UIKit
+import AVFoundation
 
 let okAction = UIAlertAction(title: "OK", style: .default)
 let step : CGFloat = 100
@@ -11,7 +12,6 @@ class Menu: UIViewController {
     var backMessage = ""
     var mainCarImage = UIImage(named: "maincar")
     
-    
     // MARK: - Private properties
     private let scoreImage = UIImage(named: "kubokk")
     private let settingsImage = UIImage(named: "settings")
@@ -22,7 +22,6 @@ class Menu: UIViewController {
     private let playLevelButton = GradienButton()
     private let playEndlessButton = GradienButton()
     
-    
     // MARK: - IBOutlets
     @IBOutlet weak var logoImageView: ShadowImageView!
     @IBOutlet weak var backgroundImage: BackgroundImageView!
@@ -30,8 +29,8 @@ class Menu: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      createReacords()
+        
+        createReacords()
         mainLabel.text = ""
         mainLabel.font = mainLabel.font.withSize(100)
         mainLabel.textAlignment = .center
@@ -57,11 +56,11 @@ class Menu: UIViewController {
                 || backMessage == "КУДА ТЫ ТАК ГОНИШЬ"
         {
             showAlert(title: "Lose",message: backMessage,actions: [okAction])
-        
+            
             backMessage = ""
         }
         if  backMessage == "VICTORY"{
-            showAlert(title: "Lose",message: "Поздравляю",actions: [okAction])
+            showAlert(title: "VICTORY",message: "Поздравляю",actions: [okAction])
             backMessage = ""
         }
     }
@@ -87,31 +86,31 @@ class Menu: UIViewController {
     
     @objc private func toShop(sender : UIButton!){
         
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as? ShopViewController else { return }
-            destinationViewController.modalPresentationStyle = .fullScreen
-            guard let testImage = mainCarImage else { return }
-            destinationViewController.mainCarImage = testImage
-
-            destVC = destinationViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ShopViewController") as? ShopViewController else { return }
+        destinationViewController.modalPresentationStyle = .fullScreen
+        guard let testImage = mainCarImage else { return }
+        destinationViewController.mainCarImage = testImage
+        
+        destVC = destinationViewController
         
         guard let destVC = destVC else { return }
         present(destVC, animated: false)
     }
     @objc private func toSettings(sender : UIButton!){
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
-            destinationViewController.modalPresentationStyle = .fullScreen
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
+        destinationViewController.modalPresentationStyle = .fullScreen
         present(destinationViewController, animated: false)
     }
     
     @objc private func toLeaderBoard(sender : UIButton!){
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "RecordsViewController") as? RecordsViewController else { return }
-            destinationViewController.modalPresentationStyle = .fullScreen
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "RecordsViewController") as? RecordsViewController else { return }
+        destinationViewController.modalPresentationStyle = .fullScreen
         present(destinationViewController, animated: false)
     }
-   
+    
     
     private func addGestures(){
         let playLevelGesture = UITapGestureRecognizer(target: self, action: #selector(toPlayLevel))
@@ -135,7 +134,7 @@ class Menu: UIViewController {
         let levelString = NSMutableAttributedString(string: "Level", attributes: myAttribute as [NSAttributedString.Key : Any] )
         let endlessString = NSMutableAttributedString(string: "Endless", attributes: myAttribute as [NSAttributedString.Key : Any] )
         let shopString = NSMutableAttributedString(string: "Shop", attributes: myAttribute as [NSAttributedString.Key : Any] )
-  
+        
         playLevelButton.frame.size = CGSize(width: 100, height: 50)
         playLevelButton.setAttributedTitle(levelString, for: .normal)
         playLevelButton.center.y = self.view.center.y
@@ -165,8 +164,6 @@ class Menu: UIViewController {
         self.view.addSubview(shopButton)
         self.view.addSubview(scoreButton)
         self.view.addSubview(settingsButton)
-        
-        
     }
     
     private func addEffects(){
@@ -191,8 +188,8 @@ class Menu: UIViewController {
             self.shopButton.alpha = 1
             self.settingsButton.alpha = 1
         })
-
+        
     }
-
+    
     
 }

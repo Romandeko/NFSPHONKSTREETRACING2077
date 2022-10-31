@@ -3,9 +3,10 @@ import UIKit
 
 
 class RecordsViewController: UIViewController {
+    // MARK: - Private properties
+    private let leaderLabel = UILabel()
+    private let backButton = GradienButton()
     
-    let leaderLabel = UILabel()
-    let backButton = GradienButton()
     // MARK: - IBOutlets
     @IBOutlet weak var backImageView: BackgroundImageView!
     
@@ -17,17 +18,13 @@ class RecordsViewController: UIViewController {
             view.addSubview(playersArray[index].nameLabel)
             view.addSubview(playersArray[index].scoreLabel)
             view.addSubview(playersArray[index].numberLabel)
-            
         }
     }
- 
+    
     // MARK: - Private methods
-    @objc private func goBack(){
-        dismiss(animated: false)
-    }
     private func addEveryting(){
         backImageView.makeBlur()
-        leaderLabel.text = "Bosses of the gym"
+        leaderLabel.text = "Bosses of this gym"
         leaderLabel.font = leaderLabel.font.withSize(40)
         leaderLabel.textAlignment = .center
         leaderLabel.textColor = .white
@@ -46,7 +43,12 @@ class RecordsViewController: UIViewController {
         view.addSubview(backButton)
         
         backButton.applyGradient(colours: [.blue, .purple], cornerRadius: 20, startPoint: CGPoint(x: 0, y: 0.5), endPoint: CGPoint(x: 1, y: 0.5))
+        
         let goBack = UITapGestureRecognizer(target: self, action: #selector(goBack))
         backButton.addGestureRecognizer(goBack)
+    }
+    
+    @objc private func goBack(){
+        dismiss(animated: false)
     }
 }
