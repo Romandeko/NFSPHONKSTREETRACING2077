@@ -2,15 +2,19 @@
 import UIKit
 import AVFoundation
 
-let okAction = UIAlertAction(title: "OK", style: .default)
-let step : CGFloat = 100
+
+
 
 class Menu: UIViewController {
+    
+   
     
     // MARK: - Override properties
     var destVC: ShopViewController? = nil
     var backMessage = ""
     var mainCarImage = UIImage(named: "maincar")
+    let okAction = UIAlertAction(title: "OK", style: .default)
+    let step : CGFloat = 100
     
     // MARK: - Private properties
     private let scoreImage = UIImage(named: "kubokk")
@@ -29,17 +33,7 @@ class Menu: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        createReacords()
-        mainLabel.text = ""
-        mainLabel.font = mainLabel.font.withSize(100)
-        mainLabel.textAlignment = .center
-        mainLabel.textColor = .black
-        mainLabel.frame.size = CGSize(width: 350, height: 200)
-        mainLabel.center.x = view.center.x
-        mainLabel.frame.origin.y = 20
-        self.view.addSubview(mainLabel)
-        
+
         backgroundImage.makeBlur()
         logoImageView.makeShadow()
         

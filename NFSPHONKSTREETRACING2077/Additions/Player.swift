@@ -6,4 +6,5 @@ struct Player{
     var numberLabel = UILabel()
     var nameLabel = UILabel()
     var scoreLabel = UILabel()
+    var dateLabel = UILabel()
 }

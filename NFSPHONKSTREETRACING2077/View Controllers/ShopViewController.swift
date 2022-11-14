@@ -20,6 +20,7 @@ class ShopViewController: UIViewController {
     var mainCarImage = UIImage()
     
     // MARK: - Private properties
+    private let okAction = UIAlertAction(title: "OK", style: .default)
     private let lamboBorder = UIView()
     private let yellowSportBorder = UIView()
     private let redSportBorder = UIView()

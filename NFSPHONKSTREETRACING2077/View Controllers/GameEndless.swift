@@ -1,5 +1,4 @@
 import UIKit
-var score = 0
 
 class GameEndless: UIViewController {
     
@@ -13,10 +12,11 @@ class GameEndless: UIViewController {
             carLayout(at: newLocation)
         }
     }
-    private var backMessage = "Капец ты слабый..."
     
+    private var backMessage = "Капец ты слабый..."
     private var time = 3
     private var seconds = 0
+    private var score = 0
     private var scoreTimer = Timer()
     private var startTimer = Timer()
     private var backTimer = Timer()
@@ -110,7 +110,8 @@ class GameEndless: UIViewController {
             view.layer.removeAllAnimations()
             speed = 0
             scoreTimer.invalidate()
-            updateRecords()
+            StorageManager.shared.currentScore = score
+            StorageManager.shared.updateRecords()
             self.dismiss(animated: false)
         }
         

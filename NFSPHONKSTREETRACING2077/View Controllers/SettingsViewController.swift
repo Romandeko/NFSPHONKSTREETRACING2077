@@ -11,6 +11,8 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Private properties
     private var audioPlayer = AVAudioPlayer()
+    let step : CGFloat = 100
+   private  let okAction = UIAlertAction(title: "OK", style: .default)
     private var musicArray = ["phonk","serebro","lmfao"]
     private var currenMusic = "phonk"
     private let musicOnImage = UIImage(named: "turnOn")
@@ -37,9 +39,17 @@ class SettingsViewController: UIViewController {
                 showAlert(title: "Ошибка",message: "Радио сломалось",actions: [okAction])
             }
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard))
+        view.addGestureRecognizer(tap)
     }
     
     // MARK: - Private methods
+    
+    @objc private func hideKeyBoard(){
+        view.endEditing(true)
+    }
+    
     private func addLabelsAndButtons(){
         let backString = NSMutableAttributedString(string: "Back", attributes: buttonAttribute as [NSAttributedString.Key : Any])
         let addString = NSMutableAttributedString(string: "Add", attributes: buttonAttribute as [NSAttributedString.Key : Any])
