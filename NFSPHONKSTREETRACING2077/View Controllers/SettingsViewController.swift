@@ -2,8 +2,7 @@
 import UIKit
 import AVFoundation
 
-var name = ""
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController,GameDelegate {
     
     // MARK: - IBOutlets
     @IBOutlet weak var backImageView: BackgroundImageView!
@@ -12,7 +11,7 @@ class SettingsViewController: UIViewController {
     // MARK: - Private properties
     private var audioPlayer = AVAudioPlayer()
     let step : CGFloat = 100
-   private  let okAction = UIAlertAction(title: "OK", style: .default)
+    private  let okAction = UIAlertAction(title: "OK", style: .default)
     private var musicArray = ["phonk","serebro","lmfao"]
     private var currenMusic = "phonk"
     private let musicOnImage = UIImage(named: "turnOn")
@@ -166,7 +165,7 @@ class SettingsViewController: UIViewController {
     
     
     @objc private func playPreviousMusic(){
-        for musicIndex in 0...musicArray.count-1{
+        for musicIndex in 0...musicArray.count-1 {
             if currenMusic == musicArray[musicIndex]{
                 if musicIndex != 0 {
                     currenMusic = musicArray[musicIndex - 1]

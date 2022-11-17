@@ -1,10 +1,10 @@
 
 import UIKit
-class GameLevel: UIViewController {
+class GameLevel: UIViewController,GameDelegate {
     
     // MARK: - Override properties
     var mainCarImage = UIImage()
-    
+    weak var delegate : GameDelegate?
     // MARK: - Private properties
     private lazy var carImageView  = UIImageView(image: mainCarImage)
     private var carLocation: Location = .center {
@@ -12,7 +12,7 @@ class GameLevel: UIViewController {
             carLayout(at: newLocation)
         }
     }
-    private var backMessage = "Капец ты слабый..."
+
     private var score = 0
     private var time = 3
     private var scoreTimer = Timer()
@@ -102,14 +102,18 @@ class GameLevel: UIViewController {
             || checkIntersect(carImageView, policeEnemy)
             || checkIntersect(carImageView, taxiEnemy){
             
-            guard let parentViewController = self.presentingViewController as?
-                    Menu else { return }
-            parentViewController.backMessage = self.backMessage
+            delegate?.gameEnded(withScore: score)
+            delegate?.newRecordSet(withScore: score)
             StorageManager.shared.coins += score
             view.layer.removeAllAnimations()
             speed = 0
             scoreTimer.invalidate()
-            self.dismiss(animated: false)
+            startTimer.invalidate()
+            backTimer.invalidate()
+            onlyOneCarTimer.invalidate()
+            isLastOnRoadTimer.invalidate()
+            isLastOnRoadTimer.invalidate()
+            dismiss(animated: false)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -174,7 +178,6 @@ class GameLevel: UIViewController {
         score += 1
         if score > 50 && isFifty == false {
             scoreLabel.textColor = .yellow
-            backMessage = "Так себе"
             isFifty = true
         }
         let myAttribute = [ NSAttributedString.Key.font: UIFont(name: "Miratrix", size: 30)]
@@ -185,10 +188,8 @@ class GameLevel: UIViewController {
     @objc private func finalCheck(){
         secondsCounter += 1
         if secondsCounter == 24{
-            guard let parentViewController = self.presentingViewController as?
-                    Menu else { return }
             StorageManager.shared.coins += 500
-            parentViewController.backMessage = "VICTORY"
+            delegate?.finishPassed()
             dismiss(animated: false)
         }
     }

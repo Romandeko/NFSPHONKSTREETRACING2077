@@ -1,21 +1,18 @@
 import UIKit
-
-class GameEndless: UIViewController {
+class GameEndless: GameViewController, GameDelegate {
     
     // MARK: - Override properties
     var mainCarImage = UIImage()
-    
+    weak var delegate : GameDelegate?
     // MARK: - Private properties
     private lazy var carImageView  = UIImageView(image: mainCarImage)
     private var carLocation: Location = .center {
         willSet (newLocation) {
             carLayout(at: newLocation)
         }
-    }
-    
-    private var backMessage = "Капец ты слабый..."
+    }   
     private var time = 3
-    private var seconds = 0
+    
     private var score = 0
     private var scoreTimer = Timer()
     private var startTimer = Timer()
@@ -26,6 +23,7 @@ class GameEndless: UIViewController {
     private let scoreLabel = UILabel()
     private let timeLabel = UILabel()
     
+    private var seconds = 0
     private let roadImage = UIImage(named: "road1")
     private lazy var roadImageView = UIImageView(image: roadImage)
     private lazy var lastRoadImageView = UIImageView(image: roadImage)
@@ -65,7 +63,7 @@ class GameEndless: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.isUserInteractionEnabled = false
         rightSide = view.frame.width - 70
         center = view.center.x
         
@@ -103,16 +101,17 @@ class GameEndless: UIViewController {
             || checkIntersect(carImageView, policeEnemy)
             || checkIntersect(carImageView, taxiEnemy){
             
-            guard let parentViewController = self.presentingViewController as?
-                    Menu else { return }
-            parentViewController.backMessage = self.backMessage
+            delegate?.gameEnded(withScore: score)
+            delegate?.newRecordSet(withScore: score)
+ 
             StorageManager.shared.coins += score
             view.layer.removeAllAnimations()
             speed = 0
             scoreTimer.invalidate()
-            StorageManager.shared.currentScore = score
-            StorageManager.shared.updateRecords()
-            self.dismiss(animated: false)
+            startTimer.invalidate()
+            backTimer.invalidate()
+            isLastOnRoadTimer.invalidate()
+            dismiss(animated: false)
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -199,18 +198,15 @@ class GameEndless: UIViewController {
         score += 1
         if score > 50 && isFifty == false {
             scoreLabel.textColor = .yellow
-            backMessage = "Так себе"
             isFifty = true
         }
         if score > 100 && isOneHundread == false {
             scoreLabel.textColor = .orange
-            backMessage = "Можно и лучше"
             isOneHundread = true
             score += 1
         }
         if score > 200 && isTwoHundread == false {
             scoreLabel.textColor = .red
-            backMessage = "КУДА ТЫ ТАК ГОНИШЬ"
             isTwoHundread = true
             score += 2
         }
@@ -237,6 +233,7 @@ class GameEndless: UIViewController {
     @objc private func startCheck(){
         guard isStarted == false else { return }
         isStarted = true
+        view.isUserInteractionEnabled = true
         animateAllEnemies()
         animateLastEnemy(enemy: policeEnemy, delay: 6)
         startBlurView.isHidden = true
@@ -255,12 +252,12 @@ class GameEndless: UIViewController {
         let time = distance/speed
         UIImageView.animate(withDuration: time, delay: delay, options: .curveLinear, animations: {
             enemy.center.y += distance
-        }, completion: { _ in
-            let randomLineArray = [self.leftSide,self.center,self.rightSide,self.center]
-            guard  let randomLine = randomLineArray.randomElement() else {return}
+        }, completion: {[weak self]  _ in
+            let randomLineArray = [self?.leftSide,self?.center,self?.rightSide,self?.center]
+            guard  let randomLine = randomLineArray.randomElement(),let randomLine  else {return}
             enemy.center.x = CGFloat(randomLine)
             enemy.center.y = -150
-            self.speed *= 1.01
+            self?.speed *= 1.01
         })
     }
     
@@ -269,13 +266,13 @@ class GameEndless: UIViewController {
         let time = distance/speed
         UIImageView.animate(withDuration: time, delay: delay, options: .curveLinear, animations: {
             enemy.center.y += distance
-        }, completion: { _ in
-            self.isLastOnRoad = true
-            let randomLineArray = [self.leftSide,self.center,self.rightSide,self.center]
-            guard  let randomLine = randomLineArray.randomElement() else {return}
+        }, completion: {[weak self]  _ in
+            self?.isLastOnRoad = true
+            let randomLineArray = [self?.leftSide,self?.center,self?.rightSide,self?.center]
+            guard  let randomLine = randomLineArray.randomElement(),let randomLine else {return}
             enemy.center.x = CGFloat(randomLine)
             enemy.center.y = -150
-            self.animateLastEnemy(enemy: enemy, delay: delay)
+            self?.animateLastEnemy(enemy: enemy, delay: delay)
         })
     }
     private func animateAllEnemies(){
@@ -287,16 +284,16 @@ class GameEndless: UIViewController {
     }
     
     private func roadAnimation(){
-        UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){
-            self.roadImageView.center.y += 900
+        UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){[weak self] in
+            self?.roadImageView.center.y += 900
         }
         
-        UIImageView.animate(withDuration: 5, delay: 0, options: [.curveLinear, .repeat] ){
-            self.secondRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: 5, delay: 0, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.secondRoadImageView.center.y += self?.roadDistance ?? 0
         }
         
-        UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){
-            self.lastRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.lastRoadImageView.center.y += self?.roadDistance ?? 0
         }
     }
     
@@ -304,28 +301,28 @@ class GameEndless: UIViewController {
         roadImageView.stopAnimating()
         secondRoadImageView.stopAnimating()
         lastRoadImageView.stopAnimating()
-        roadImageView.frame.size.width = self.view.frame.size.width
+        roadImageView.frame.size.width = view.frame.size.width
         roadImageView.frame.origin.x = 0
         roadImageView.frame.origin.y = 0
         
         secondRoadImageView.frame.origin.x = 0
         secondRoadImageView.frame.origin.y = -899
-        secondRoadImageView.frame.size.width = self.view.frame.size.width
+        secondRoadImageView.frame.size.width = view.frame.size.width
         
         lastRoadImageView.frame.origin.x = 0
         lastRoadImageView.frame.origin.y = -899
-        lastRoadImageView.frame.size.width = self.view.frame.size.width
+        lastRoadImageView.frame.size.width = view.frame.size.width
         
-        UIImageView.animate(withDuration: delay, delay: 0, options: [.curveLinear] ){
-            self.roadImageView.center.y += 900
+        UIImageView.animate(withDuration: delay, delay: 0, options: [.curveLinear] ){[weak self] in
+            self?.roadImageView.center.y += 900
         }
         
-        UIImageView.animate(withDuration: duration, delay: 0, options: [.curveLinear, .repeat] ){
-            self.secondRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: duration, delay: 0, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.secondRoadImageView.center.y += self?.roadDistance ?? 0
         }
         
-        UIImageView.animate(withDuration: duration, delay: delay, options: [.curveLinear, .repeat] ){
-            self.lastRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: duration, delay: delay, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.lastRoadImageView.center.y += self?.roadDistance ?? 0
         }
     }
     
@@ -349,24 +346,24 @@ class GameEndless: UIViewController {
     }
     
     private func carLayout( at location : Location){
-        UIImageView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut ){
+        UIImageView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut ){ [weak self] in
             switch location {
                 
             case .left:
-                self.carImageView.center.x = self.leftSide
+                self?.carImageView.center.x = self?.leftSide ?? 0
                 
             case .center:
-                self.carImageView.center.x = self.center
+                self?.carImageView.center.x = self?.center ?? 0
                 
             case .right:
-                self.carImageView.center.x = self.rightSide
+                self?.carImageView.center.x = self?.rightSide ?? 0
             }
         }
     }
     
     private func enemiesStartLayout(){
         
-        let randomLineArray = [self.leftSide,self.center,self.rightSide]
+        let randomLineArray = [leftSide,center,rightSide]
         guard let randomLineForWhite = randomLineArray.randomElement() else {return}
         guard let randomLineForTruck = randomLineArray.randomElement() else {return}
         guard let randomLineForTaxi = randomLineArray.randomElement() else {return}
@@ -390,15 +387,15 @@ class GameEndless: UIViewController {
     }
     
     private func roadsStartLayout(){
-        roadImageView.frame.size.width = self.view.frame.size.width
+        roadImageView.frame.size.width = view.frame.size.width
         
         secondRoadImageView.frame.origin.x = 0
         secondRoadImageView.frame.origin.y = -899
-        secondRoadImageView.frame.size.width = self.view.frame.size.width
+        secondRoadImageView.frame.size.width = view.frame.size.width
         
         lastRoadImageView.frame.origin.x = 0
         lastRoadImageView.frame.origin.y = -899
-        lastRoadImageView.frame.size.width = self.view.frame.size.width
+        lastRoadImageView.frame.size.width = view.frame.size.width
         
     }
     

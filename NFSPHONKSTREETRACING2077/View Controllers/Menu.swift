@@ -1,13 +1,7 @@
-
+///  3. GAMEVC  4 . MInUTE 20
 import UIKit
 import AVFoundation
-
-
-
-
-class Menu: UIViewController {
-    
-   
+class Menu: UIViewController{
     
     // MARK: - Override properties
     var destVC: ShopViewController? = nil
@@ -15,6 +9,7 @@ class Menu: UIViewController {
     var mainCarImage = UIImage(named: "maincar")
     let okAction = UIAlertAction(title: "OK", style: .default)
     let step : CGFloat = 100
+    weak var delegate : GameDelegate?
     
     // MARK: - Private properties
     private let scoreImage = UIImage(named: "kubokk")
@@ -33,7 +28,7 @@ class Menu: UIViewController {
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        StorageManager.shared.createRecords()
         backgroundImage.makeBlur()
         logoImageView.makeShadow()
         
@@ -41,31 +36,56 @@ class Menu: UIViewController {
         addGestures()
         addEffects()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        if  backMessage == "Капец ты слабый..."
-                || backMessage == "Так себе"
-                || backMessage == "Можно и лучше"
-                || backMessage == "КУДА ТЫ ТАК ГОНИШЬ"
-        {
-            showAlert(title: "Lose",message: backMessage,actions: [okAction])
-            
-            backMessage = ""
-        }
-        if  backMessage == "VICTORY"{
-            showAlert(title: "VICTORY",message: "Поздравляю",actions: [okAction])
-            backMessage = ""
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        checkUsername() { isConfirmed in
+            if !isConfirmed {
+                self.rickRoll()
+            }
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
     // MARK: - Private methods
+    
+    private func checkUsername(handler : ((_ isConfirmed : Bool) -> ())? = nil){
+        guard StorageManager.shared.name.count == 0 else {return}
+        let nameAlert = UIAlertController(title: "Enter your name", message: "Type your name for saving scores", preferredStyle: .alert)
+        nameAlert.addTextField { textField in
+            textField.placeholder = "Name"
+        }
+        let saveAction = UIAlertAction(title: "Save", style: .default){_ in
+            let name = nameAlert.textFields?.first?.text ?? ""
+            if name == "" {
+                handler?(false)
+            } else{
+                StorageManager.shared.name = name
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default){_ in
+            handler?(false)
+            
+        }
+        nameAlert.addAction(saveAction)
+        nameAlert.addAction(cancelAction)
+        present(nameAlert,animated: true)
+    }
+    
+    private func rickRoll(){
+        guard let url = URL(string: "https://www.youtube.com/watch?v=9PUSwdStJdQ") else { return }
+        UIApplication.shared.open(url, options: [:])
+        
+    }
     @objc private func toPlayLevel(sender : UIButton!){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "GameLevel") as? GameLevel else { return }
         destinationViewController.modalPresentationStyle = .fullScreen
         guard let testImage = mainCarImage else { return }
         destinationViewController.mainCarImage = testImage
+        destinationViewController.delegate = self
         present(destinationViewController, animated: false)
     }
     
@@ -75,6 +95,7 @@ class Menu: UIViewController {
         destinationViewController.modalPresentationStyle = .fullScreen
         guard let testImage = mainCarImage else { return }
         destinationViewController.mainCarImage = testImage
+        destinationViewController.delegate = self
         present(destinationViewController, animated: false)
     }
     
@@ -186,4 +207,46 @@ class Menu: UIViewController {
     }
     
     
+}
+
+extension Menu : GameDelegate {
+    func gameEnded(withScore score: Int) {
+        var message : String
+        switch score {
+        case 0...50:
+            message = "Капец ты слабый..."
+        case 51...100:
+            message = "Так себе"
+        case 101...200:
+            message = "Можно и лучше"
+        default:
+            message = "КУДА ТЫ ТАК ГОНИШЬ"
+        }
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.2){[self] in
+            showAlert(title: "Game over", message: message,actions: [okAction])
+        }
+    }
+
+    func finishPassed() {
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.2){ [self] in
+            showAlert(title: "VICTORY",message: "Поздравляю",actions: [okAction])
+        }
+    }
+    func newRecordSet(withScore score: Int) {
+        let date = Date()
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "dd/MM/yyyy"
+        let dateString = dataFormatter.string(from: date)
+        let newPlayer = Player(name: StorageManager.shared.name, score: score, date: dateString)
+        StorageManager.shared.playersArray.append(newPlayer)
+        StorageManager.shared.playersArray.sort{ $0.score > $1.score }
+        while StorageManager.shared.playersArray.count > 10{
+            StorageManager.shared.playersArray.removeLast()
+        }
+        for index in 0...StorageManager.shared.playersArray.count - 1 {
+            StorageManager.shared.nameArray[index].text = StorageManager.shared.playersArray[index].name
+            StorageManager.shared.scoreArray[index].text = String(StorageManager.shared.playersArray[index].score)
+            StorageManager.shared.dateArray[index].text = StorageManager.shared.playersArray[index].date
+        }
+    }
 }

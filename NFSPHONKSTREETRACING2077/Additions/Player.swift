@@ -2,9 +2,11 @@
 import Foundation
 import UIKit
 
-struct Player{
-    var numberLabel = UILabel()
-    var nameLabel = UILabel()
-    var scoreLabel = UILabel()
-    var dateLabel = UILabel()
+struct Player : Codable {
+    var name : String
+    var score : Int
+    var date : String
 }
+
+
+extension Player : Equatable { }
