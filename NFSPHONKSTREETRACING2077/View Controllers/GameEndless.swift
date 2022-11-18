@@ -1,5 +1,5 @@
 import UIKit
-class GameEndless: GameViewController, GameDelegate {
+class GameEndless: UIViewController, GameDelegate {
     
     // MARK: - Override properties
     var mainCarImage = UIImage()
