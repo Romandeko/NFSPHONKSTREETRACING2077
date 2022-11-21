@@ -28,7 +28,6 @@ class Menu: UIViewController{
     // MARK: - Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        StorageManager.shared.createRecords()
         backgroundImage.makeBlur()
         logoImageView.makeShadow()
         
@@ -38,6 +37,9 @@ class Menu: UIViewController{
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        if StorageManager.shared.playersArray.count == 0{
+            scoreButton.isHidden = true
+        }
         checkUsername() { isConfirmed in
             if !isConfirmed {
                 self.rickRoll()
@@ -50,7 +52,6 @@ class Menu: UIViewController{
     }
     
     // MARK: - Private methods
-    
     private func checkUsername(handler : ((_ isConfirmed : Bool) -> ())? = nil){
         guard StorageManager.shared.name.count == 0 else {return}
         let nameAlert = UIAlertController(title: "Enter your name", message: "Type your name for saving scores", preferredStyle: .alert)
@@ -121,9 +122,8 @@ class Menu: UIViewController{
     
     @objc private func toLeaderBoard(sender : UIButton!){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "RecordsViewController") as? RecordsViewController else { return }
-        destinationViewController.modalPresentationStyle = .fullScreen
-        present(destinationViewController, animated: false)
+        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "ScoresViewController") as? ScoresViewController else { return }
+        present(destinationViewController, animated: true)
     }
     
     
@@ -240,13 +240,6 @@ extension Menu : GameDelegate {
         let newPlayer = Player(name: StorageManager.shared.name, score: score, date: dateString)
         StorageManager.shared.playersArray.append(newPlayer)
         StorageManager.shared.playersArray.sort{ $0.score > $1.score }
-        while StorageManager.shared.playersArray.count > 10{
-            StorageManager.shared.playersArray.removeLast()
-        }
-        for index in 0...StorageManager.shared.playersArray.count - 1 {
-            StorageManager.shared.nameArray[index].text = StorageManager.shared.playersArray[index].name
-            StorageManager.shared.scoreArray[index].text = String(StorageManager.shared.playersArray[index].score)
-            StorageManager.shared.dateArray[index].text = StorageManager.shared.playersArray[index].date
-        }
+
     }
 }
