@@ -37,9 +37,6 @@ class Menu: UIViewController{
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if StorageManager.shared.playersArray.count == 0{
-            scoreButton.isHidden = true
-        }
         checkUsername() { isConfirmed in
             if !isConfirmed {
                 self.rickRoll()
@@ -241,5 +238,10 @@ extension Menu : GameDelegate {
         StorageManager.shared.playersArray.append(newPlayer)
         StorageManager.shared.playersArray.sort{ $0.score > $1.score }
 
+    }
+    func cuvet(){
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.2){[self] in
+            showAlert(title: "Game over", message: "Ты улетел в кювет(",actions: [okAction])
+        }
     }
 }

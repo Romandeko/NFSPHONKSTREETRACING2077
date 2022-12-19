@@ -27,8 +27,7 @@ class ScoresViewController: UIViewController {
     private func setUpTable(){
         tableView.delegate = self
         tableView.dataSource = self
-        let cellNib = UINib(nibName: "ScoreCell", bundle: Bundle.main)
-        tableView.register(cellNib, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
 }
 

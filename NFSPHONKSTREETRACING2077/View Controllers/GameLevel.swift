@@ -1,63 +1,12 @@
 
 import UIKit
-class GameLevel: UIViewController,GameDelegate {
+class GameLevel: GameViewController {
     
-    // MARK: - Override properties
-    var mainCarImage = UIImage()
-    weak var delegate : GameDelegate?
     // MARK: - Private properties
-    private lazy var carImageView  = UIImageView(image: mainCarImage)
-    private var carLocation: Location = .center {
-        willSet (newLocation) {
-            carLayout(at: newLocation)
-        }
-    }
-
-    private var score = 0
-    private var time = 3
-    private var scoreTimer = Timer()
+    
     private var finalTimer = Timer()
-    private var startTimer = Timer()
-    private var backTimer = Timer()
-    private var onlyOneCarTimer = Timer()
-    private var isLastOnRoadTimer = Timer()
-    private let scoreLabel = UILabel()
-    private let timeLabel = UILabel()
-    
-    private let roadImage = UIImage(named: "road1")
     private let finalRoad = UIImage(named: "FINISH")
-    private lazy var roadImageView = UIImageView(image: roadImage)
-    private lazy var lastRoadImageView = UIImageView(image: roadImage)
-    private lazy var secondRoadImageView = UIImageView(image: roadImage)
     private lazy var finalRoadImageView = UIImageView(image: finalRoad)
-    
-    private let whiteEnemyImage = UIImage(named: "whiteEnemy")
-    private let greenEnemyImage = UIImage(named: "green")
-    private let taxiEnemyImage  = UIImage(named: "taxi")
-    private let redEnemyImage = UIImage(named: "redcar")
-    private let policeEnemyImage = UIImage(named: "police")
-    private let blueEnemyImage = UIImage(named: "blue")
-    
-    private lazy var whiteEnemy = UIImageView(image: whiteEnemyImage)
-    private lazy var greenEnemy = UIImageView(image: greenEnemyImage)
-    private lazy var taxiEnemy = UIImageView(image: taxiEnemyImage)
-    private lazy var redEnemy = UIImageView(image: redEnemyImage)
-    private lazy var policeEnemy = UIImageView(image: policeEnemyImage)
-    private lazy var blueEnemy = UIImageView(image: blueEnemyImage)
-    
-    private var rightSide : CGFloat = 0
-    private var leftSide: CGFloat = 70
-    private var center : CGFloat = 0
-    
-    private var speed = 300.0
-    private var roadDistance = 1800.0
-    private var secondsCounter = 0
-    
-    private var isOneHundread = false
-    private var isFifty = false
-    private var isTwoHundread = false
-    private var isStarted = false
-    private var isLastOnRoad = false
     
     // MARK: - IBOutlets
     @IBOutlet weak var startBlurView: BackgroundView!
@@ -70,7 +19,7 @@ class GameLevel: UIViewController,GameDelegate {
         
         startBlurView.alpha = 1
         startBlurView.makeBlur()
-        
+        motionManager.startAccelerometerUpdates()
         roadsStartLayout()
         mainCarStartLayout()
         enemiesStartLayout()
@@ -80,8 +29,6 @@ class GameLevel: UIViewController,GameDelegate {
         view.insertSubview(startBlurView, aboveSubview: roadImageView)
         view.insertSubview(startBlurView, aboveSubview: carImageView)
         
-        addSwipeGesture(to: carImageView, with: .left)
-        addSwipeGesture(to: carImageView, with: .right)
     }
     
     override func viewDidAppear(_ animated: Bool){
@@ -105,14 +52,8 @@ class GameLevel: UIViewController,GameDelegate {
             delegate?.gameEnded(withScore: score)
             delegate?.newRecordSet(withScore: score)
             StorageManager.shared.coins += score
-            view.layer.removeAllAnimations()
-            speed = 0
-            scoreTimer.invalidate()
-            startTimer.invalidate()
-            backTimer.invalidate()
-            onlyOneCarTimer.invalidate()
-            isLastOnRoadTimer.invalidate()
-            isLastOnRoadTimer.invalidate()
+            
+            stopEverything()
             dismiss(animated: false)
         }
         
@@ -170,9 +111,29 @@ class GameLevel: UIViewController,GameDelegate {
         startTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(startCheck), userInfo: nil, repeats: true)
         backTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeBack), userInfo: nil, repeats: true)
         isLastOnRoadTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(checkLastCar), userInfo: nil, repeats: true)
-        
     }
     
+    @objc func update() {
+        if let accelerometerData = motionManager.accelerometerData {
+            let valX = accelerometerData.acceleration.x
+            
+            
+            if (carImageView.frame.origin.x < -30)
+               || (carImageView.frame.origin.x > view.frame.size.width - 30)
+            {
+                delegate?.cuvet()
+                delegate?.newRecordSet(withScore: score)
+                StorageManager.shared.coins += score
+                stopEverything()
+                dismiss(animated: false)
+            }
+            carImageView.center.x += CGFloat(valX * 6)
+            
+            lastX = valX
+            
+        }
+        
+    }
     @objc private func scoreUpdate(){
         guard isStarted == true else { return }
         score += 1
@@ -190,6 +151,7 @@ class GameLevel: UIViewController,GameDelegate {
         if secondsCounter == 24{
             StorageManager.shared.coins += 500
             delegate?.finishPassed()
+            stopEverything()
             dismiss(animated: false)
         }
     }
@@ -197,11 +159,14 @@ class GameLevel: UIViewController,GameDelegate {
     @objc private func timeBack(){
         if timeLabel.text  == "1" {
             timeLabel.text = "GO"
+            movementTimer = Timer.scheduledTimer(timeInterval: 0.008333, target: self, selector: #selector(update), userInfo: nil, repeats: true)
             return
         }
         if timeLabel.text  == "GO" {
             timeLabel.text = ""
+            carImageView.isUserInteractionEnabled = true
             backTimer.invalidate()
+            
             return
         }
         time -= 1
@@ -233,88 +198,68 @@ class GameLevel: UIViewController,GameDelegate {
     
     // MARK: - Animations
     private func animateEnemy(enemy: UIImageView, delay : Double){
-        let distance : Double = 1050
+        let distance : Double = 1200
         let time = distance/speed
         UIImageView.animate(withDuration: time, delay: delay, options: .curveLinear, animations: {
             enemy.center.y += distance
-        }, completion: { _ in
-            let randomLineArray = [self.leftSide,self.center,self.rightSide,self.center]
-            guard  let randomLine = randomLineArray.randomElement() else {return}
+        }, completion: {[weak self]  _ in
+            let randomLineArray = [self?.leftSide,self?.center,self?.rightSide,self?.center]
+            guard  let randomLine = randomLineArray.randomElement(),let randomLine  else {return}
             enemy.center.x = CGFloat(randomLine)
             enemy.center.y = -150
+            self?.speed *= 1.01
         })
     }
     
+    
     private func animateLastEnemy(enemy: UIImageView, delay : Double){
-        let distance : Double = 1050
+        let distance : Double = 1150
         let time = distance/speed
         UIImageView.animate(withDuration: time, delay: delay, options: .curveLinear, animations: {
             enemy.center.y += distance
-        }, completion: { _ in
-            self.isLastOnRoad = true
-            let randomLineArray = [self.leftSide,self.center,self.rightSide,self.center]
-            guard  let randomLine = randomLineArray.randomElement() else {return}
+        }, completion: {[weak self] _ in
+            self?.isLastOnRoad = true
+            let randomLineArray = [self?.leftSide,self?.center,self?.rightSide,self?.center]
+            guard  let randomLine = randomLineArray.randomElement(), let randomLine else {return}
             enemy.center.x = CGFloat(randomLine)
             enemy.center.y = -150
-            self.animateLastEnemy(enemy: enemy, delay: delay)
+            self?.animateLastEnemy(enemy: enemy, delay: delay)
         })
     }
     
     private func roadAnimation(){
-        UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){
-            self.roadImageView.center.y += 900
+        UIImageView.animate(withDuration: 2.5, delay: 0, options: [.curveLinear] ){[weak self] in
+            self?.roadImageView.center.y += (self?.roadDistance ?? 0) / 2
         }
         
-        UIImageView.animate(withDuration: 5, delay: 0, options: [.curveLinear, .repeat] ){
-            self.secondRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: 5, delay: 0, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.secondRoadImageView.center.y += self?.roadDistance ?? 0
         }
         
-        UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){
-            self.lastRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: 5, delay: 2.5, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.lastRoadImageView.center.y += self?.roadDistance ?? 0
         }
-        UIImageView.animate(withDuration: 5, delay: 19.5, options: [.curveLinear, .repeat] ){
-            self.finalRoadImageView.center.y += self.roadDistance
+        UIImageView.animate(withDuration: 5, delay: 19.5, options: [.curveLinear, .repeat] ){[weak self] in
+            self?.finalRoadImageView.center.y += self?.roadDistance ?? 0
         }
     }
     
+    private func stopEverything(){
+        view.layer.removeAllAnimations()
+        speed = 0
+        scoreTimer.invalidate()
+        startTimer.invalidate()
+        backTimer.invalidate()
+        onlyOneCarTimer.invalidate()
+        isLastOnRoadTimer.invalidate()
+        finalTimer.invalidate()
+        movementTimer.invalidate()
+    }
     // MARK: - Layouts
-    private func addSwipeGesture(to view: UIImageView, with direction: UISwipeGestureRecognizer.Direction){
-        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(moveCar))
-        swipeGesture.direction = direction
-        self.view.addGestureRecognizer(swipeGesture)
-    }
-    
-    @objc private func moveCar (_ gestureRecogniser: UISwipeGestureRecognizer){
-        switch gestureRecogniser.direction{
-        case .left:
-            if carLocation == .center {carLocation = .left}
-            if carLocation == .right {carLocation = .center}
-        case .right:
-            if carLocation == .center {carLocation = .right}
-            if carLocation == .left {carLocation = .center}
-        default: return
-        }
-    }
-    
-    private func carLayout( at location : Location){
-        UIImageView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut ){
-            switch location {
-                
-            case .left:
-                self.carImageView.center.x = self.leftSide
-                
-            case .center:
-                self.carImageView.center.x = self.center
-                
-            case .right:
-                self.carImageView.center.x = self.rightSide
-            }
-        }
-    }
     
     private func enemiesStartLayout(){
         
-        let randomLineArray = [self.leftSide,self.center,self.rightSide]
+        let randomLineArray = [leftSide,center,rightSide]
         guard let randomLineForWhite = randomLineArray.randomElement() else {return}
         guard let randomLineForTruck = randomLineArray.randomElement() else {return}
         guard let randomLineForTaxi = randomLineArray.randomElement() else {return}
@@ -339,18 +284,21 @@ class GameLevel: UIViewController,GameDelegate {
     
     private func roadsStartLayout(){
         roadImageView.frame.size.width = self.view.frame.size.width
-        
+        roadImageView.frame.size.height = roadDistance / 2
         secondRoadImageView.frame.origin.x = 0
-        secondRoadImageView.frame.origin.y = -899
-        secondRoadImageView.frame.size.width = self.view.frame.size.width
+        secondRoadImageView.frame.origin.y = -roadDistance/2 + 1
+        secondRoadImageView.frame.size.width = view.frame.size.width
+        secondRoadImageView.frame.size.height = roadDistance / 2
         
         lastRoadImageView.frame.origin.x = 0
-        lastRoadImageView.frame.origin.y = -899
-        lastRoadImageView.frame.size.width = self.view.frame.size.width
+        lastRoadImageView.frame.origin.y = -roadDistance/2 + 1
+        lastRoadImageView.frame.size.width = view.frame.size.width
+        lastRoadImageView.frame.size.height = roadDistance / 2
         
         finalRoadImageView.frame.origin.x = 0
-        finalRoadImageView.frame.origin.y = -899
-        finalRoadImageView.frame.size.width = self.view.frame.size.width
+        finalRoadImageView.frame.origin.y = -roadDistance/2 + 1
+        finalRoadImageView.frame.size.width = view.frame.size.width
+        finalRoadImageView.frame.size.height = roadDistance / 2
     }
     
     private  func mainCarStartLayout(){

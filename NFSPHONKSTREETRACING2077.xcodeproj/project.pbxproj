@@ -10,7 +10,7 @@
 		3F017946290B0FB000B2C6A0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017945290B0FB000B2C6A0 /* SettingsViewController.swift */; };
 		3F027055290559CB006A03D0 /* Comfortaa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F02705329055986006A03D0 /* Comfortaa.ttf */; };
 		3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F05585628F9C3970028DC7D /* GameEndless.swift */; };
-		3F087A6E291EAB91001A98D9 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F087A6D291EAB91001A98D9 /* Data.swift */; };
+		3F087A6E291EAB91001A98D9 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F087A6D291EAB91001A98D9 /* Date.swift */; };
 		3F3693172927E82300936CB6 /* ScoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3693152927E82300936CB6 /* ScoreCell.swift */; };
 		3F3693182927E82300936CB6 /* ScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F3693162927E82300936CB6 /* ScoreCell.xib */; };
 		3F3956E5290B2CB500C49784 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3956E4290B2CB500C49784 /* StorageManager.swift */; };
@@ -31,6 +31,7 @@
 		3F6DBC7D28FE8464000286CB /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7C28FE8464000286CB /* BlurView.swift */; };
 		3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC7E28FE8756000286CB /* ShadowView.swift */; };
 		3F6DBC8128FE8765000286CB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6DBC8028FE8765000286CB /* GradientView.swift */; };
+		3F74373E292F7C3800ACA980 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F74373D292F7C3800ACA980 /* GameViewController.swift */; };
 		3FACBB9E29291D2600F4ACF1 /* ScoresInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FACBB9D29291D2600F4ACF1 /* ScoresInfoViewController.swift */; };
 		3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD5C0828FC518C0016D95D /* ShopViewController.swift */; };
 		3FC8197A290D353700B7F810 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC81979290D353700B7F810 /* Player.swift */; };
@@ -43,7 +44,7 @@
 		3F017945290B0FB000B2C6A0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3F02705329055986006A03D0 /* Comfortaa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Comfortaa.ttf; sourceTree = "<group>"; };
 		3F05585628F9C3970028DC7D /* GameEndless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndless.swift; sourceTree = "<group>"; };
-		3F087A6D291EAB91001A98D9 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		3F087A6D291EAB91001A98D9 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		3F3693152927E82300936CB6 /* ScoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCell.swift; sourceTree = "<group>"; };
 		3F3693162927E82300936CB6 /* ScoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreCell.xib; sourceTree = "<group>"; };
 		3F3956E4290B2CB500C49784 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -65,6 +66,7 @@
 		3F6DBC7C28FE8464000286CB /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		3F6DBC7E28FE8756000286CB /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		3F6DBC8028FE8765000286CB /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		3F74373D292F7C3800ACA980 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		3FACBB9D29291D2600F4ACF1 /* ScoresInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresInfoViewController.swift; sourceTree = "<group>"; };
 		3FBD5C0828FC518C0016D95D /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		3FC81979290D353700B7F810 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -156,7 +158,7 @@
 				3F6DBC8028FE8765000286CB /* GradientView.swift */,
 				3FD09AF629094E2200A2264F /* UIViewController+Alert.swift */,
 				3F41AA8229238667006BCC3E /* GameDelegate.swift */,
-				3F087A6D291EAB91001A98D9 /* Data.swift */,
+				3F087A6D291EAB91001A98D9 /* Date.swift */,
 				3F3693152927E82300936CB6 /* ScoreCell.swift */,
 			);
 			path = "Custom Views";
@@ -172,6 +174,7 @@
 				3F017945290B0FB000B2C6A0 /* SettingsViewController.swift */,
 				3FEB28A32927E3E500BC809A /* ScoresViewController.swift */,
 				3FACBB9D29291D2600F4ACF1 /* ScoresInfoViewController.swift */,
+				3F74373D292F7C3800ACA980 /* GameViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				3FD09AF729094E2200A2264F /* UIViewController+Alert.swift in Sources */,
 				3F4E98D628F6E30F00FB734F /* Location.swift in Sources */,
 				3F05585728F9C3970028DC7D /* GameEndless.swift in Sources */,
+				3F74373E292F7C3800ACA980 /* GameViewController.swift in Sources */,
 				3FACBB9E29291D2600F4ACF1 /* ScoresInfoViewController.swift in Sources */,
 				3F6DBC7F28FE8756000286CB /* ShadowView.swift in Sources */,
 				3FBD5C0928FC518C0016D95D /* ShopViewController.swift in Sources */,
@@ -284,7 +288,7 @@
 				3FFAB82828FDD03700E08645 /* CustomViews.swift in Sources */,
 				3F3ADCB728F605000082D95F /* AppDelegate.swift in Sources */,
 				3F3956E5290B2CB500C49784 /* StorageManager.swift in Sources */,
-				3F087A6E291EAB91001A98D9 /* Data.swift in Sources */,
+				3F087A6E291EAB91001A98D9 /* Date.swift in Sources */,
 				3FC8197A290D353700B7F810 /* Player.swift in Sources */,
 				3FEB28A42927E3E500BC809A /* ScoresViewController.swift in Sources */,
 				3F3693172927E82300936CB6 /* ScoreCell.swift in Sources */,

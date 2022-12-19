@@ -150,27 +150,78 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HtC-65-TAj">
-                                <rect key="frame" x="120" y="87" width="150" height="34"/>
+                                <rect key="frame" x="120" y="109" width="150" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="UTg-eb-HoN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mq9-V4-oLm">
+                                <rect key="frame" x="175" y="755" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="nrI-Bi-LV9"/>
+                                    <constraint firstAttribute="height" constant="40" id="oCW-sd-7A7"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="" image="mail1"/>
+                                <connections>
+                                    <action selector="sendMail:" destination="A2Z-S9-6op" eventType="touchUpInside" id="6zq-1w-R7b"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5d-e8-Thu">
+                                <rect key="frame" x="265" y="755" width="35" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Aqz-9H-XYR"/>
+                                    <constraint firstAttribute="width" constant="35" id="rOf-Tg-gLP"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="" image="telega"/>
+                                <connections>
+                                    <action selector="toTelegram:" destination="A2Z-S9-6op" eventType="touchUpInside" id="bmQ-TV-dSC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liC-5N-yt1">
+                                <rect key="frame" x="93" y="755" width="32" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dzj-HW-crH"/>
+                                    <constraint firstAttribute="width" constant="32" id="gHW-n3-QpK"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="phone1"/>
+                                <connections>
+                                    <action selector="phoneCall:" destination="A2Z-S9-6op" eventType="touchUpInside" id="oP7-ZA-Nfi"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name is :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw5-Q1-aWF">
+                                <rect key="frame" x="121.00000000000001" y="63" width="148.33333333333337" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lPY-uL-58S"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="lPY-uL-58S" firstAttribute="bottom" secondItem="liC-5N-yt1" secondAttribute="bottom" constant="15" id="8Xk-mO-uhB"/>
                             <constraint firstItem="dod-dm-5uM" firstAttribute="top" secondItem="sha-AH-B6O" secondAttribute="top" id="CoA-5S-ZRQ"/>
-                            <constraint firstItem="HtC-65-TAj" firstAttribute="top" secondItem="lPY-uL-58S" secondAttribute="top" constant="40" id="DbD-YP-Evm"/>
                             <constraint firstItem="HtC-65-TAj" firstAttribute="centerX" secondItem="sha-AH-B6O" secondAttribute="centerX" id="FLm-Lp-s8d"/>
                             <constraint firstItem="dod-dm-5uM" firstAttribute="leading" secondItem="sha-AH-B6O" secondAttribute="leading" id="VmM-Dz-GQ0"/>
+                            <constraint firstItem="Mq9-V4-oLm" firstAttribute="centerX" secondItem="sha-AH-B6O" secondAttribute="centerX" id="Wum-ZK-4Wd"/>
+                            <constraint firstItem="b5d-e8-Thu" firstAttribute="leading" secondItem="Mq9-V4-oLm" secondAttribute="trailing" constant="50" id="dDG-Qx-mKv"/>
+                            <constraint firstItem="HtC-65-TAj" firstAttribute="top" secondItem="hw5-Q1-aWF" secondAttribute="bottom" constant="16" id="i99-6Q-YxM"/>
+                            <constraint firstItem="hw5-Q1-aWF" firstAttribute="top" secondItem="lPY-uL-58S" secondAttribute="top" constant="16" id="kic-uL-qHq"/>
                             <constraint firstItem="dod-dm-5uM" firstAttribute="trailing" secondItem="sha-AH-B6O" secondAttribute="trailing" id="miy-wu-1KA"/>
                             <constraint firstAttribute="bottom" secondItem="dod-dm-5uM" secondAttribute="bottom" id="rGY-qa-PZz"/>
+                            <constraint firstItem="lPY-uL-58S" firstAttribute="bottom" secondItem="Mq9-V4-oLm" secondAttribute="bottom" constant="15" id="rJH-if-zsH"/>
+                            <constraint firstItem="lPY-uL-58S" firstAttribute="bottom" secondItem="b5d-e8-Thu" secondAttribute="bottom" constant="15" id="w40-Js-WZn"/>
+                            <constraint firstItem="hw5-Q1-aWF" firstAttribute="centerX" secondItem="sha-AH-B6O" secondAttribute="centerX" id="w5w-qp-3Vc"/>
+                            <constraint firstItem="Mq9-V4-oLm" firstAttribute="leading" secondItem="liC-5N-yt1" secondAttribute="trailing" constant="50" id="zbC-Pc-UvD"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backImageView" destination="dod-dm-5uM" id="3Iq-Bv-YzH"/>
+                        <outlet property="nameLabel" destination="hw5-Q1-aWF" id="kee-9b-zje"/>
                         <outlet property="nameTextField" destination="HtC-65-TAj" id="MnK-Be-XpN"/>
                     </connections>
                 </viewController>
@@ -271,6 +322,9 @@
     <resources>
         <image name="background1" width="1080" height="1892"/>
         <image name="logo" width="900" height="675"/>
+        <image name="mail1" width="304" height="195"/>
+        <image name="phone1" width="208" height="270"/>
+        <image name="telega" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
